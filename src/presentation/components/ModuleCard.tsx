@@ -19,9 +19,7 @@ function ModuleCardBase({ module, onPress }: Props) {
   const mountAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.parallel([
-      Animated.timing(mountAnim, { toValue: 1, duration: 350, useNativeDriver: true }),
-    ]).start();
+    Animated.timing(mountAnim, { toValue: 1, duration: 350, useNativeDriver: true }).start();
   }, []);
 
   const handlePressIn = useCallback(() => {
