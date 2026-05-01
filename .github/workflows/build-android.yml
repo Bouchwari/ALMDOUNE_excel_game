@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,8 +35,13 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Generate native Android project
-        # Use local expo binary to avoid npx pulling a newer incompatible version
+        # local binary avoids npx pulling a newer incompatible expo-cli
         run: ./node_modules/.bin/expo prebuild --platform android --clean --no-install
+
+      - name: Write local.properties
+        # prebuild --clean recreates android/ after setup-android runs, so we must
+        # write local.properties manually so Gradle can find the SDK
+        run: echo "sdk.dir=$ANDROID_HOME" > android/local.properties
 
       - name: Make Gradle executable
         run: chmod +x android/gradlew
@@ -43,9 +51,12 @@ jobs:
         env:
           GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m"
 
+      - name: Find APK
+        run: find android/app/build/outputs -name "*.apk" 2>/dev/null || echo "No APKs found"
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: ExcelStar-v1.2.0
-          path: android/app/build/outputs/apk/release/app-release-unsigned.apk
+          path: android/app/build/outputs/apk/**/*.apk
           retention-days: 30
