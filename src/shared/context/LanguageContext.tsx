@@ -15,9 +15,9 @@ interface LanguageContextValue {
 }
 
 const LanguageContext = createContext<LanguageContextValue>({
-  language: 'darija-lat',
-  S: LANGUAGE_STRINGS['darija-lat'],
-  G: GENDERED_STRINGS['darija-lat'],
+  language: 'darija-ar',
+  S: LANGUAGE_STRINGS['darija-ar'],
+  G: GENDERED_STRINGS['darija-ar'],
   gender: 'male',
   setLanguage: () => {},
   setGender: () => {},
@@ -26,7 +26,7 @@ const LanguageContext = createContext<LanguageContextValue>({
 
 export function LanguageProvider({
   children,
-  initialLanguage = 'darija-lat',
+  initialLanguage = 'darija-ar',
   initialGender = 'male',
   onLanguageChange,
 }: {

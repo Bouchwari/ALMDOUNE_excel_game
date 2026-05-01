@@ -4,10 +4,10 @@ import { CameraView, useCameraPermissions } from 'expo-camera';
 import { spacing, radius } from '../theme/spacing';
 import { useTheme, type ColorPalette } from '../../shared/context/ThemeContext';
 import { useLanguage } from '../../shared/context/LanguageContext';
-import { QRPayload, decodeChallenge } from '../../domain/multiplayer/FriendChallenge';
+import { AnyQRPayload, decodeAnyChallenge } from '../../domain/multiplayer/FriendChallenge';
 
 interface Props {
-  onScanned: (payload: QRPayload) => void;
+  onScanned: (payload: AnyQRPayload) => void;
   onBack: () => void;
 }
 
@@ -21,7 +21,7 @@ export function FriendChallengeScanScreen({ onScanned, onBack }: Props) {
 
   const handleBarcode = ({ data }: { data: string }) => {
     if (scanned) return;
-    const payload = decodeChallenge(data);
+    const payload = decodeAnyChallenge(data);
     if (payload) {
       setScanned(true);
       onScanned(payload);

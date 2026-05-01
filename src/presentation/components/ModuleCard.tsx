@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native
 import { ModuleWithProgress } from '../../application/curriculum/GetModulesUseCase';
 import { spacing, radius, shadow } from '../theme/spacing';
 import { useTheme, type ColorPalette } from '../../shared/context/ThemeContext';
+import { useLanguage } from '../../shared/context/LanguageContext';
 import { StarRating } from './StarRating';
 import { ProgressRing } from './ProgressRing';
 
@@ -13,8 +14,11 @@ interface Props {
 
 function ModuleCardBase({ module, onPress }: Props) {
   const { colors } = useTheme();
+  const { S, language } = useLanguage();
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
   const { isUnlocked, progressPercent, starsEarned, totalStars, titleFr, titleDarija, descriptionDarija, icon, color } = module;
+  const primaryTitle = language === 'darija-ar' ? titleDarija : titleFr;
+  const secondaryTitle = language === 'darija-ar' ? titleFr : titleDarija;
   const scale = useRef(new Animated.Value(1)).current;
   const mountAnim = useRef(new Animated.Value(0)).current;
 
@@ -46,8 +50,8 @@ function ModuleCardBase({ module, onPress }: Props) {
           <View style={styles.topRow}>
             <Text style={styles.icon}>{icon}</Text>
             <View style={styles.titleBlock}>
-              <Text style={styles.titleFr}>{titleFr}</Text>
-              <Text style={styles.titleDarija}>{titleDarija}</Text>
+              <Text style={styles.titleFr}>{primaryTitle}</Text>
+              <Text style={styles.titleDarija}>{secondaryTitle}</Text>
             </View>
             <ProgressRing progress={progressPercent / 100} size={44} color={color} />
           </View>
@@ -55,8 +59,8 @@ function ModuleCardBase({ module, onPress }: Props) {
           <View style={styles.bottomRow}>
             <StarRating stars={starsEarned} total={totalStars} size={14} />
             <Text style={styles.starsText}>{starsEarned}/{totalStars} ⭐</Text>
-            {!isUnlocked && <Text style={styles.lockBadge}>🔒 Msdoud</Text>}
-            {isUnlocked && progressPercent === 100 && <Text style={styles.doneBadge}>✅ Mkemmel</Text>}
+            {!isUnlocked && <Text style={styles.lockBadge}>{S.locked}</Text>}
+            {isUnlocked && progressPercent === 100 && <Text style={styles.doneBadge}>{S.moduleDone}</Text>}
           </View>
         </View>
       </TouchableOpacity>

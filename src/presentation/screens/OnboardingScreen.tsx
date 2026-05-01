@@ -83,7 +83,7 @@ export function OnboardingScreen({ onComplete, onLanguageSelect }: Props) {
   if (step === 'language') {
     return (
       <View style={styles.langContainer}>
-        <Text style={styles.langTitle}>🌍 {LANGUAGE_STRINGS['darija-lat'].langSelectTitle}</Text>
+        <Text style={styles.langTitle}>🌍 {LANGUAGE_STRINGS['darija-ar'].langSelectTitle}</Text>
         <Text style={styles.langSub}>Choose your language</Text>
         <View style={styles.langGrid}>
           {LANGUAGE_OPTIONS.map(opt => (
@@ -107,13 +107,12 @@ export function OnboardingScreen({ onComplete, onLanguageSelect }: Props) {
 
   if (step === 'gender') {
     const isAr = language === 'darija-ar';
-    const isLat = language === 'darija-lat';
     const isFr = language === 'fr';
 
-    const title = isAr ? 'شكون نتا/نتي؟' : isLat ? 'Shkoun nta/nti?' : isFr ? 'Qui es-tu?' : 'Who are you?';
-    const maleLabel = isAr ? '👦 ولد' : isLat ? '👦 Weld' : isFr ? '👦 Garçon' : '👦 Boy';
-    const femaleLabel = isAr ? '👧 بنت' : isLat ? '👧 Bent' : isFr ? '👧 Fille' : '👧 Girl';
-    const confirmLabel = isAr ? 'بدا! 🚀' : isLat ? 'Bda! 🚀' : isFr ? 'Commencer! 🚀' : 'Start! 🚀';
+    const title = isAr ? 'شكون نتا/نتي؟' : isFr ? 'Qui es-tu?' : 'Who are you?';
+    const maleLabel = isAr ? '👦 ولد' : isFr ? '👦 Garçon' : '👦 Boy';
+    const femaleLabel = isAr ? '👧 بنت' : isFr ? '👧 Fille' : '👧 Girl';
+    const confirmLabel = isAr ? 'بدا! 🚀' : isFr ? 'Commencer! 🚀' : 'Start! 🚀';
 
     return (
       <View style={styles.genderContainer}>
@@ -202,7 +201,7 @@ export function OnboardingScreen({ onComplete, onLanguageSelect }: Props) {
         </Animated.View>
 
         <TouchableOpacity onPress={() => setStep('language')} style={styles.changeLangBtn}>
-          <Text style={styles.changeLangText}>🌍 {language === 'darija-lat' ? 'Bdel Lgha' : language === 'darija-ar' ? 'بدل اللغة' : language === 'fr' ? 'Changer langue' : 'Change language'}</Text>
+          <Text style={styles.changeLangText}>🌍 {language === 'darija-ar' ? 'بدل اللغة' : language === 'fr' ? 'Changer langue' : 'Change language'}</Text>
         </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>

@@ -29,8 +29,11 @@ interface LessonRowProps {
 }
 
 const LessonRow = React.memo(function LessonRow({ lesson, index, moduleId, result, onPress, styles }: LessonRowProps) {
+  const { language } = useLanguage();
   const stars = result?.stars ?? 0;
   const done = (result?.score ?? 0) >= 50;
+  const primaryTitle = language === 'darija-ar' ? lesson.titleDarija : lesson.titleFr;
+  const secondaryTitle = language === 'darija-ar' ? lesson.titleFr : lesson.titleDarija;
 
   return (
     <TouchableOpacity
@@ -42,8 +45,8 @@ const LessonRow = React.memo(function LessonRow({ lesson, index, moduleId, resul
         <Text style={styles.lessonNumText}>{done ? '✓' : index + 1}</Text>
       </View>
       <View style={styles.lessonInfo}>
-        <Text style={styles.lessonTitle}>{lesson.titleFr}</Text>
-        <Text style={styles.lessonDarija}>{lesson.titleDarija}</Text>
+        <Text style={styles.lessonTitle}>{primaryTitle}</Text>
+        <Text style={styles.lessonDarija}>{secondaryTitle}</Text>
         {lesson.isMiniGame && <Text style={styles.miniTag}>🎮 Mini-Jeu</Text>}
       </View>
       <View style={styles.lessonStars}>
@@ -62,7 +65,7 @@ const ModuleItem = React.memo(function ModuleItem({ item, onPress }: { item: Mod
 export function ModuleListScreen({
   modules, onModulePress, selectedModuleId, lessons, lessonResults, onLessonPress, onBack,
 }: Props) {
-  const { S } = useLanguage();
+  const { S, language } = useLanguage();
   const { colors } = useTheme();
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
   const [query, setQuery] = useState('');
@@ -93,8 +96,8 @@ export function ModuleListScreen({
             <Text style={styles.backText}>{S.back}</Text>
           </TouchableOpacity>
           <View style={styles.subHeaderCenter}>
-            <Text style={styles.modTitle} numberOfLines={1}>{mod?.titleFr}</Text>
-            <Text style={styles.modSub}>{mod?.titleDarija}</Text>
+            <Text style={styles.modTitle} numberOfLines={1}>{language === 'darija-ar' ? mod?.titleDarija : mod?.titleFr}</Text>
+            <Text style={styles.modSub}>{language === 'darija-ar' ? mod?.titleFr : mod?.titleDarija}</Text>
           </View>
           <View style={[styles.modBadge, { backgroundColor: mod?.color + '22' }]}>
             <Text style={styles.modBadgeText}>{mod?.icon}</Text>

@@ -30,7 +30,9 @@ import { FriendChallengePlayScreen } from './src/presentation/screens/FriendChal
 import { FriendChallengeQRScreen } from './src/presentation/screens/FriendChallengeQRScreen';
 import { FriendChallengeScanScreen } from './src/presentation/screens/FriendChallengeScanScreen';
 import { FriendChallengeResultScreen } from './src/presentation/screens/FriendChallengeResultScreen';
-import { QRPayload, PlayerResult } from './src/domain/multiplayer/FriendChallenge';
+import { ClassChallengeCreateScreen } from './src/presentation/screens/ClassChallengeCreateScreen';
+import { ClassChallengeResultScreen } from './src/presentation/screens/ClassChallengeResultScreen';
+import { QRPayload, AnyQRPayload, PlayerResult } from './src/domain/multiplayer/FriendChallenge';
 import { generateFriendChallenge, getExercisesByPoolIds } from './src/shared/utils/challengeEngine';
 
 import { useStudent } from './src/shared/hooks/useStudent';
@@ -68,7 +70,10 @@ type AppScreen =
   | 'friend-play'
   | 'friend-qr'
   | 'friend-scan'
-  | 'friend-result';
+  | 'friend-result'
+  | 'class-create'
+  | 'class-play'
+  | 'class-result';
 
 interface LessonContext {
   moduleId: string;
@@ -98,7 +103,7 @@ const DEFAULT_SETTINGS: AppSettings = {
   notificationsEnabled: true,
   currentStudentId: null,
   isFirstLaunch: false,
-  language: 'darija-lat',
+  language: 'darija-ar',
 };
 
 const TAB_ICONS: Record<string, string> = {
@@ -123,6 +128,11 @@ function AppInner() {
   const [friendQRPayload, setFriendQRPayload] = useState<QRPayload | null>(null);
   const [friendHostResult, setFriendHostResult] = useState<PlayerResult | null>(null);
   const [friendGuestResult, setFriendGuestResult] = useState<PlayerResult | null>(null);
+
+  const [classExercises, setClassExercises] = useState<Exercise[]>([]);
+  const [classTitle, setClassTitle] = useState('');
+  const [classScore, setClassScore] = useState(0);
+  const [classStars, setClassStars] = useState(0);
 
   const {
     students, currentStudent, currentProgress, settings, loading,
@@ -170,15 +180,18 @@ function AppInner() {
       'lesson', 'exercise', 'challenge', 'result',
       'settings', 'game-cell', 'game-formula', 'game-speed',
       'friend-hub', 'friend-play', 'friend-qr', 'friend-scan', 'friend-result',
+      'class-create', 'class-play', 'class-result',
     ];
     const handler = BackHandler.addEventListener('hardwareBackPress', () => {
-      if (backScreens.includes(screen)) {
-        if (screen === 'exercise') setScreen('lesson');
-        else if (screen === 'result') setScreen('main');
-        else setScreen('main');
-        return true;
+      if (!backScreens.includes(screen)) return false;
+      switch (screen) {
+        case 'exercise':     setScreen('lesson'); break;
+        case 'friend-play':  setScreen('friend-hub'); break;
+        case 'friend-scan':  setScreen('friend-hub'); break;
+        case 'friend-result':setScreen('friend-hub'); break;
+        default:             setScreen('main'); break;
       }
-      return false;
+      return true;
     });
     return () => handler.remove();
   }, [screen]);
@@ -307,15 +320,37 @@ function AppInner() {
     setScreen('friend-qr');
   }, [currentStudent, friendPoolIds]);
 
-  const handleFriendScanned = useCallback((payload: QRPayload) => {
+  const handleAnyScanned = useCallback((payload: AnyQRPayload) => {
     const exercises = getExercisesByPoolIds(payload.q);
     if (exercises.length === 0) return;
-    setFriendExercises(exercises);
-    setFriendRole('guest');
-    setFriendHostResult({ name: payload.p, avatar: payload.a, score: payload.s, stars: payload.st, timeSeconds: payload.ti });
-    setFriendQRPayload(payload);
-    setScreen('friend-play');
+    if (payload.v === 1) {
+      setFriendExercises(exercises);
+      setFriendRole('guest');
+      setFriendHostResult({ name: payload.p, avatar: payload.a, score: payload.s, stars: payload.st, timeSeconds: payload.ti });
+      setFriendQRPayload(payload);
+      setScreen('friend-play');
+    } else {
+      setClassExercises(exercises);
+      setClassTitle(payload.title);
+      setScreen('class-play');
+    }
   }, []);
+
+  const handleClassSelfPlay = useCallback((exercises: Exercise[], title: string) => {
+    setClassExercises(exercises);
+    setClassTitle(title);
+    setScreen('class-play');
+  }, []);
+
+  const handleClassPlayComplete = useCallback(async (score: number) => {
+    const stars = calculateStars(score);
+    const xp = Math.round((score / 100) * 30);
+    if (xp > 0) await awardGameXP(xp);
+    await refreshProgress();
+    setClassScore(score);
+    setClassStars(stars);
+    setScreen('class-result');
+  }, [awardGameXP, refreshProgress]);
 
   const handleFriendGuestComplete = useCallback(async (score: number, timeSeconds: number) => {
     if (!currentStudent || !friendHostResult) return;
@@ -398,7 +433,7 @@ function AppInner() {
     return wrap(colors.white, <LessonScreen lesson={currentLesson} onComplete={handleLessonComplete} onBack={() => setScreen('main')} />);
 
   if (screen === 'exercise' && currentLesson)
-    return wrap(colors.white, <ExerciseScreen exercises={currentLesson.exercises} lessonTitle={currentLesson.titleFr} onComplete={handleExerciseComplete} onBack={() => setScreen('main')} />);
+    return wrap(colors.white, <ExerciseScreen exercises={currentLesson.exercises} lessonTitle={language === 'darija-ar' ? currentLesson.titleDarija : currentLesson.titleFr} onComplete={handleExerciseComplete} onBack={() => setScreen('main')} />);
 
   if (screen === 'challenge')
     return wrap(colors.white, <ExerciseScreen exercises={challengeExercises} lessonTitle={S.challengeTitle} onComplete={handleChallengeComplete} onBack={() => setScreen('main')} />);
@@ -425,7 +460,16 @@ function AppInner() {
     return wrap(colors.background, <FriendChallengeQRScreen payload={friendQRPayload} onDone={() => setScreen('main')} />);
 
   if (screen === 'friend-scan')
-    return wrap(colors.background, <FriendChallengeScanScreen onScanned={handleFriendScanned} onBack={() => setScreen('friend-hub')} />);
+    return wrap(colors.background, <FriendChallengeScanScreen onScanned={handleAnyScanned} onBack={() => setScreen('friend-hub')} />);
+
+  if (screen === 'class-create')
+    return wrap(colors.background, <ClassChallengeCreateScreen onPlaySelf={handleClassSelfPlay} onBack={() => setScreen('main')} />);
+
+  if (screen === 'class-play' && classExercises.length > 0)
+    return wrap(colors.white, <ExerciseScreen exercises={classExercises} lessonTitle={classTitle} onComplete={handleClassPlayComplete} onBack={() => setScreen('main')} />);
+
+  if (screen === 'class-result')
+    return wrap(colors.splashBg, <ClassChallengeResultScreen score={classScore} stars={classStars} title={classTitle} onDone={() => setScreen('main')} />);
 
   if (screen === 'friend-result' && friendHostResult && friendGuestResult)
     return wrap(colors.splashBg, <FriendChallengeResultScreen
@@ -519,6 +563,7 @@ function AppInner() {
                   onPlayGame={handlePlayGame}
                   onDailyChallenge={handleDailyChallenge}
                   onQuickQuiz={handleQuickQuiz}
+                  onClassChallenge={() => setScreen('class-create')}
                   isChallengeAvailable={isChallengeAvailable}
                 />
               )}

@@ -259,6 +259,18 @@ export function generateFriendChallenge(
   return { exercises, poolIds };
 }
 
+export function generateClassChallenge(
+  difficulty: 1 | 2 | 3,
+  count: number,
+): { exercises: Exercise[]; poolIds: string[] } {
+  const pool = QUESTION_POOL.filter(q => q.difficulty <= difficulty);
+  const shuffled = shuffleArray(pool);
+  const selected = shuffled.slice(0, Math.min(count, shuffled.length));
+  const poolIds = selected.map(q => q.exercise.id);
+  const exercises = selected.map((q, i) => ({ ...q.exercise, id: `class-${Date.now()}-${i}` }));
+  return { exercises, poolIds };
+}
+
 export function getExercisesByPoolIds(ids: string[]): Exercise[] {
   return ids
     .map(id => QUESTION_POOL.find(q => q.exercise.id === id)?.exercise)

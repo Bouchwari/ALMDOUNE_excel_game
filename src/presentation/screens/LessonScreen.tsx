@@ -5,6 +5,7 @@ import {
 import { Lesson, LessonSlide } from '../../domain/curriculum/Lesson';
 import { spacing, radius } from '../theme/spacing';
 import { useTheme, type ColorPalette } from '../../shared/context/ThemeContext';
+import { useLanguage } from '../../shared/context/LanguageContext';
 import { FormulaBox } from '../components/visuals/FormulaBox';
 import { FormulaDisplay } from '../components/visuals/FormulaDisplay';
 import { ExcelMockup } from '../components/visuals/ExcelMockup';
@@ -35,6 +36,7 @@ function extractShortcuts(text: string): string[] {
 }
 
 function SlideContent({ slide, styles }: { slide: LessonSlide; styles: Styles }) {
+  const { S } = useLanguage();
   const steps = extractSteps(slide.explanation);
   const shortcuts = extractShortcuts(slide.tip ?? '');
   const hasFormula = slide.excelExample != null && isFormula(slide.excelExample);
@@ -44,13 +46,13 @@ function SlideContent({ slide, styles }: { slide: LessonSlide; styles: Styles })
   return (
     <>
       <View style={styles.conceptBadge}>
-        <Text style={styles.conceptLabel}>Concept</Text>
+        <Text style={styles.conceptLabel}>{S.lessonConceptLabel}</Text>
         <Text style={styles.conceptFr}>{slide.conceptFr}</Text>
       </View>
 
       {steps != null ? (
         <View style={styles.card}>
-          <StepByStep steps={steps} title="Étapes:" />
+          <StepByStep steps={steps} title={S.lessonStepsLabel} />
         </View>
       ) : (
         <View style={styles.explanationCard}>
@@ -60,7 +62,7 @@ function SlideContent({ slide, styles }: { slide: LessonSlide; styles: Styles })
 
       {hasFormula && (
         <View style={styles.visualBlock}>
-          <Text style={styles.visualLabel}>📐 Formule:</Text>
+          <Text style={styles.visualLabel}>{S.lessonFormulaLabel}</Text>
           <FormulaBox formula={slide.excelExample!} />
           <ExcelMockup
             formulaBar={slide.excelExample}
@@ -82,14 +84,14 @@ function SlideContent({ slide, styles }: { slide: LessonSlide; styles: Styles })
 
       {hasPlainExample && (
         <View style={styles.visualBlock}>
-          <Text style={styles.visualLabel}>📌 Exemple:</Text>
+          <Text style={styles.visualLabel}>{S.lessonExampleLabel}</Text>
           <FormulaDisplay formula={slide.excelExample!} showToggle />
         </View>
       )}
 
       {shortcuts.length > 0 && (
         <View style={styles.shortcutBlock}>
-          <Text style={styles.visualLabel}>⌨️ Raccourcis clavier:</Text>
+          <Text style={styles.visualLabel}>{S.lessonShortcutsLabel}</Text>
           <View style={styles.shortcutRow}>
             {shortcuts.map((sc, i) => (
               <KeyboardShortcut key={i} shortcut={sc} />
@@ -100,7 +102,7 @@ function SlideContent({ slide, styles }: { slide: LessonSlide; styles: Styles })
 
       {slide.tip != null && (
         <View style={styles.tipBox}>
-          <Text style={styles.tipLabel}>💡 Sber! Tip:</Text>
+          <Text style={styles.tipLabel}>{S.lessonTipLabel}</Text>
           <Text style={styles.tipText}>{slide.tip}</Text>
         </View>
       )}
@@ -110,8 +112,11 @@ function SlideContent({ slide, styles }: { slide: LessonSlide; styles: Styles })
 
 export function LessonScreen({ lesson, onComplete, onBack }: Props) {
   const { colors } = useTheme();
+  const { S, language } = useLanguage();
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
   const [slideIdx, setSlideIdx] = useState(0);
+  const primaryTitle = language === 'darija-ar' ? lesson.titleDarija : lesson.titleFr;
+  const secondaryTitle = language === 'darija-ar' ? lesson.titleFr : lesson.titleDarija;
   const slides = lesson.slides;
   const current = slides[slideIdx];
   const isLast = slideIdx === slides.length - 1;
@@ -126,8 +131,8 @@ export function LessonScreen({ lesson, onComplete, onBack }: Props) {
           <Text style={styles.backText}>←</Text>
         </TouchableOpacity>
         <View style={styles.headerCenter}>
-          <Text style={styles.lessonTitle} numberOfLines={1}>{lesson.titleFr}</Text>
-          <Text style={styles.lessonDarija}>{lesson.titleDarija}</Text>
+          <Text style={styles.lessonTitle} numberOfLines={1}>{primaryTitle}</Text>
+          <Text style={styles.lessonDarija}>{secondaryTitle}</Text>
         </View>
         <Text style={styles.slideCount}>{slideIdx + 1}/{slides.length}</Text>
       </View>
@@ -147,7 +152,7 @@ export function LessonScreen({ lesson, onComplete, onBack }: Props) {
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         {lesson.isMiniGame && (
           <View style={styles.miniGameBanner}>
-            <Text style={styles.miniGameText}>🎮 Mini-Jeu!</Text>
+            <Text style={styles.miniGameText}>{S.lessonMiniGame}</Text>
           </View>
         )}
         <SlideContent slide={current} styles={styles} />

@@ -15,7 +15,7 @@ export interface AppSettings {
   notificationsEnabled: boolean;
   currentStudentId: string | null;
   isFirstLaunch: boolean;
-  language: 'darija-ar' | 'darija-lat' | 'fr' | 'en';
+  language: 'darija-ar' | 'fr' | 'en';
 }
 
 export const defaultSettings: AppSettings = {
@@ -24,5 +24,5 @@ export const defaultSettings: AppSettings = {
   notificationsEnabled: true,
   currentStudentId: null,
   isFirstLaunch: true,
-  language: 'darija-lat',
+  language: 'darija-ar',
 };

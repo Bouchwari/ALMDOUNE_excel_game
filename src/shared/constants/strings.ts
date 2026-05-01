@@ -1,4 +1,4 @@
-export type AppLanguage = 'darija-ar' | 'darija-lat' | 'fr' | 'en';
+export type AppLanguage = 'darija-ar' | 'fr' | 'en';
 
 export interface AppStrings {
   langName: string;
@@ -130,6 +130,16 @@ export interface AppStrings {
   settingsSchool: string;
   settingsSubject: string;
 
+  // Module / Lesson labels
+  moduleDone: string;
+  lessonConceptLabel: string;
+  lessonStepsLabel: string;
+  lessonFormulaLabel: string;
+  lessonExampleLabel: string;
+  lessonShortcutsLabel: string;
+  lessonTipLabel: string;
+  lessonMiniGame: string;
+
   // Leaderboard
   leaderboardTitle: string;
   leaderboardEmpty: string;
@@ -148,6 +158,15 @@ export interface AppStrings {
 
   // Streak Calendar
   streakCalendar: string;
+
+  // Class Challenge (group)
+  classChallengeTitle: string;
+  classChallengeSubtitle: string;
+  classChallengeQRInstruction: string;
+  classChallengePlaySelf: string;
+  classChallengeResultTitle: string;
+  classChallengeShareHint: string;
+  classChallengeDone: string;
 
   // Friend Challenge (multiplayer)
   friendChallengeTitle: string;
@@ -180,147 +199,6 @@ export interface AppStrings {
   level: string;
   streak: string;
 }
-
-const DARIJA_LAT: AppStrings = {
-  langName: 'Darija (Latin)',
-  isRTL: false,
-  tabHome: 'Dyali',
-  tabModules: 'Drous',
-  tabLeaderboard: 'Meydane',
-  tabBadges: 'Badges',
-  tabSimulator: 'Simulator',
-  langSelectTitle: 'Khtar Lgha dyalek',
-  langSelectSub: 'Choose your language',
-  onboard1Title: 'Merhba bik f ExcelStar! 🎉',
-  onboard1Desc: 'App dial t3allom Excel b t3ab w l3ab! Koll dars = XP + badge jdid.',
-  onboard2Title: 'T3llem Excel b l3ab! 🎮',
-  onboard2Desc: 'Drous, exercises, mini-games w badges – kollchi m3a ba3d!',
-  onboard3Title: 'Sifet smittek w bda! 🚀',
-  onboard3Desc: 'Kteb smittek w khtar avatar dyalek – w bda l-aventure!',
-  nameLabel: 'Smittek:',
-  namePlaceholder: 'Kteb smittek...',
-  avatarLabel: 'Khtar avatar dyalek:',
-  startBtn: 'Bda daba! 🚀',
-  nextBtn: 'Jji →',
-  loading: 'Mashi...',
-  greeting: 'Merhba! 👋',
-  gamesTitle: '🎮 Jeux & Défis',
-  dailyChallengeTitle: 'Defi dyal lyoum 🔥',
-  dailyChallengeDesc: 'Sol 5 so2alat w kaseb XP!',
-  quickQuizTitle: 'Quiz dyal daba ⚡',
-  quickQuizDesc: 'So2alat jdad koll marra',
-  myModules: 'Drous dyalek 📚',
-  checkBtn: 'Shuf Jawab →',
-  nextQ: 'So2al jdid →',
-  finishBtn: '🏁 Chuf Natija!',
-  correct: 'Sah! 🎉',
-  wrong: 'Ghalt! Ma3lich 😊',
-  showHint: '💡 Hint',
-  hintLabel: '💡 Hint:',
-  trueBtn: 'Sh7i7 ✓',
-  falseBtn: 'Ghalt ✗',
-  correctAnswer: 'Jawab sh7i7:',
-  reorderLabel: 'Ratteb l-parts:',
-  result3: 'Mzyan bzaf! 3ndek najma ⭐⭐⭐',
-  result2: 'Mzyan! Zid 3la haka! ⭐⭐',
-  result1: 'Ma3lich, 7awel merra okhra! 💪⭐',
-  result0: 'Ma3lich, 3awed 7awel! 😊',
-  xpEarned: 'XP ksbiti:',
-  nextLesson: 'Dars jdid →',
-  retryBtn: '3awed',
-  backHome: 'L-Bit',
-  simulatorTitle: 'Excel Simulator 🖥️',
-  simulatorHint: 'Tap f cellule, kteb valeur aw formule (bda b =)',
-  fnSum: 'SOMME',
-  fnAvg: 'MOYENNE',
-  fnIf: 'SI',
-  fnCount: 'NB',
-  fnCountIf: 'NB.SI',
-  fnMax: 'MAX',
-  fnMin: 'MIN',
-  fnLeft: 'GAUCHE',
-  fnRight: 'DROITE',
-  fnUpper: 'MAJUSCULE',
-  challengeTitle: 'Défi dyal lyoum',
-  dailyChallenge: 'Défi',
-  hintCost: '(-10 pts)',
-  noHints: 'Ma bqa hints!',
-  challengeDone: 'Enditi lyoum ✅',
-  challengeNextIn: 'Jdid gheda 🌙',
-  tabGames: 'L3ab 🎮',
-  gameCellNavName: 'Cell Navigator',
-  gameCellNavDesc: 'Lqa la cellule f table Excel!',
-  gameFormulaName: 'Formula Fixer',
-  gameFormulaDesc: 'Sali7 formules dial Excel!',
-  gameSpeedQuizName: 'Speed Quiz',
-  gameSpeedQuizDesc: 'Jawab sari3 w kseb XP!',
-  gamePlayBtn: 'Bda L3ab! 🚀',
-  gameRound: 'Round',
-  gameScore: 'Score',
-  gameOver: '🏁 Game Over!',
-  gameTapCell: 'Tap 3la la cellule:',
-  gameTimeLeft: 'wa9t bqa:',
-  gameStreakLabel: 'Streak 🔥',
-  gameXpBonus: 'XP bonus!',
-  gameNext: 'Jji →',
-  continueLabel: 'Kmel min wqefti →',
-  modulesSubtitle: 'Bda men l-awwal aw kmel wijn wqefti!',
-  miniGamesTitle: '🎮 Mini Jeux',
-  diffEasy: 'Debutant',
-  diffMedium: 'Moyen',
-  diffHard: 'Rapide',
-  gameTipTitle: '💡 Kifach tkseb XP aktar?',
-  gameTipText: '→ Jawab sari3 = bonus XP\n→ Streak zid = multiplier akbar\n→ Koll challenge = XP jdida!',
-  settingsTitle: 'L-Settings ⚙️',
-  settingsProfileSection: 'Profil',
-  settingsProfileLabel: 'Profil d3if',
-  settingsSwitchProfile: 'Bdel Profil',
-  settingsGenderSection: 'Jins / Genre',
-  settingsMale: 'Weld',
-  settingsFemale: 'Bent',
-  settingsSoundSection: 'Son w Vibration',
-  settingsSoundLabel: '🔊 Son',
-  settingsVibration: '📳 Vibration',
-  settingsAboutSection: '3la ExcelStar',
-  settingsSchool: 'Madrasa',
-  settingsSubject: 'Matière',
-  leaderboardTitle: 'L-Meydane 🏆',
-  leaderboardEmpty: 'Mazal ma kayen 7add. Bda t3alm!',
-  leaderboardBotLabel: '🤖 Demo',
-  leaderboardOnlyOne: 'Dir as7abek ydkhlo l-app bash tshof trtib! 🏆',
-  leaderboardYouHere: '← nta hna',
-  darkMode: '🌙 Dark Mode',
-  searchModules: '🔍 Qlab 3la dars...',
-  shareProgress: '📤 Share',
-  streakCalendar: '🔥 Ayam dyal l3b',
-  friendChallengeTitle: '🤝 Defi m3a Sa7bek',
-  friendCreate: '🎯 Dar Defi',
-  friendScan: '📷 Scanner Defi',
-  friendHowTitle: 'Kifach kaykheddem?',
-  friendStep1: '① L3ab so2alat – kaseb score dyalek',
-  friendStep2: '② Wri QR code l sa7bek',
-  friendStep3: '③ Sa7bek i-scann w il3ab nafs so2alat',
-  friendStep4: '④ Qaren scores – l-ghlab kaseb XP ziyada! 🏆',
-  friendShowQR: 'Wri had QR l sa7bek',
-  friendQRInstruction: 'Sa7bek i-scann had code bash il3ab',
-  friendDone: '✓ Rje3 l-Dar',
-  friendScanTitle: '📷 Scanner Defi dyal Sa7bek',
-  friendScanInstruction: 'Wihi caméra 3la QR dyal sa7bek',
-  friendScanError: 'QR code machi mzyan. 3awed jarreb.',
-  friendPermissionTitle: 'Khassna Camera',
-  friendPermissionBtn: 'Sam7 l Camera',
-  friendResultTitle: 'Natija 🏆',
-  friendWinner: '🥇 Ghlab!',
-  friendDraw: '🤝 Mshiw m3a ba3d!',
-  friendYou: 'Nta',
-  friendFriend: 'Sa7bek',
-  friendPlayAgain: '🔄 L3ab m3a Sa7bek',
-  locked: 'Msdoud 🔒',
-  back: '← Rje3',
-  englishNote: '',
-  level: 'Level',
-  streak: 'Yam',
-};
 
 const DARIJA_AR: AppStrings = {
   langName: 'دارجة (عربية)',
@@ -425,6 +303,14 @@ const DARIJA_AR: AppStrings = {
   settingsAboutSection: 'عن ExcelStar',
   settingsSchool: 'المدرسة',
   settingsSubject: 'المادة',
+  moduleDone: '✅ مكمّل',
+  lessonConceptLabel: 'المفهوم',
+  lessonStepsLabel: 'الخطوات:',
+  lessonFormulaLabel: '📐 الصيغة:',
+  lessonExampleLabel: '📌 مثال:',
+  lessonShortcutsLabel: '⌨️ اختصارات:',
+  lessonTipLabel: '💡 نصيحة:',
+  lessonMiniGame: '🎮 لعبة صغيرة!',
   leaderboardTitle: 'الميدان 🏆',
   leaderboardEmpty: 'مازال ما كاين حد. بدا تعلم!',
   leaderboardBotLabel: '🤖 ديمو',
@@ -434,6 +320,13 @@ const DARIJA_AR: AppStrings = {
   searchModules: '🔍 ابحث عن درس...',
   shareProgress: '📤 شارك',
   streakCalendar: '🔥 أيام اللعب',
+  classChallengeTitle: '👨‍🏫 تحدي الفصل',
+  classChallengeSubtitle: 'اختار الصعوبة وعدد الأسئلة',
+  classChallengeQRInstruction: 'كل طالب يسكان هاد QR باش يلعب',
+  classChallengePlaySelf: '▶ العب بنفسك',
+  classChallengeResultTitle: 'نتيجتك 🎯',
+  classChallengeShareHint: 'ورّي هاد QR للفصل',
+  classChallengeDone: '✓ ارجع',
   friendChallengeTitle: '🤝 تحدي مع صاحبك',
   friendCreate: '🎯 اصنع تحدي',
   friendScan: '📷 سكان التحدي',
@@ -566,6 +459,14 @@ const FRENCH: AppStrings = {
   settingsAboutSection: 'À propos',
   settingsSchool: 'École',
   settingsSubject: 'Matière',
+  moduleDone: '✅ Terminé',
+  lessonConceptLabel: 'Concept',
+  lessonStepsLabel: 'Étapes:',
+  lessonFormulaLabel: '📐 Formule:',
+  lessonExampleLabel: '📌 Exemple:',
+  lessonShortcutsLabel: '⌨️ Raccourcis clavier:',
+  lessonTipLabel: '💡 Astuce:',
+  lessonMiniGame: '🎮 Mini-Jeu!',
   leaderboardTitle: 'Classement 🏆',
   leaderboardEmpty: 'Pas encore de joueurs. Commencez à apprendre!',
   leaderboardBotLabel: '🤖 Demo',
@@ -575,6 +476,13 @@ const FRENCH: AppStrings = {
   searchModules: '🔍 Rechercher un cours...',
   shareProgress: '📤 Partager',
   streakCalendar: '🔥 Jours actifs',
+  classChallengeTitle: '👨‍🏫 Défi de Classe',
+  classChallengeSubtitle: 'Choisissez la difficulté et le nombre de questions',
+  classChallengeQRInstruction: 'Chaque élève scanne ce QR pour jouer',
+  classChallengePlaySelf: '▶ Jouer soi-même',
+  classChallengeResultTitle: 'Ton résultat 🎯',
+  classChallengeShareHint: 'Montre ce QR à la classe',
+  classChallengeDone: '✓ Retour',
   friendChallengeTitle: '🤝 Défi Ami',
   friendCreate: '🎯 Créer un Défi',
   friendScan: '📷 Scanner un Défi',
@@ -707,6 +615,14 @@ const ENGLISH: AppStrings = {
   settingsAboutSection: 'About ExcelStar',
   settingsSchool: 'School',
   settingsSubject: 'Subject',
+  moduleDone: '✅ Done',
+  lessonConceptLabel: 'Concept',
+  lessonStepsLabel: 'Steps:',
+  lessonFormulaLabel: '📐 Formula:',
+  lessonExampleLabel: '📌 Example:',
+  lessonShortcutsLabel: '⌨️ Keyboard shortcuts:',
+  lessonTipLabel: '💡 Tip:',
+  lessonMiniGame: '🎮 Mini-Game!',
   leaderboardTitle: 'Leaderboard 🏆',
   leaderboardEmpty: 'No players yet. Start learning!',
   leaderboardBotLabel: '🤖 Demo',
@@ -716,6 +632,13 @@ const ENGLISH: AppStrings = {
   searchModules: '🔍 Search for a module...',
   shareProgress: '📤 Share',
   streakCalendar: '🔥 Active Days',
+  classChallengeTitle: '👨‍🏫 Class Challenge',
+  classChallengeSubtitle: 'Choose difficulty and number of questions',
+  classChallengeQRInstruction: 'Each student scans this QR to play',
+  classChallengePlaySelf: '▶ Play yourself',
+  classChallengeResultTitle: 'Your result 🎯',
+  classChallengeShareHint: 'Show this QR to the class',
+  classChallengeDone: '✓ Done',
   friendChallengeTitle: '🤝 Friend Challenge',
   friendCreate: '🎯 Create Challenge',
   friendScan: '📷 Scan Challenge',
@@ -746,7 +669,6 @@ const ENGLISH: AppStrings = {
 };
 
 export const LANGUAGE_STRINGS: Record<AppLanguage, AppStrings> = {
-  'darija-lat': DARIJA_LAT,
   'darija-ar': DARIJA_AR,
   'fr': FRENCH,
   'en': ENGLISH,
@@ -754,7 +676,6 @@ export const LANGUAGE_STRINGS: Record<AppLanguage, AppStrings> = {
 
 export const LANGUAGE_OPTIONS: { id: AppLanguage; name: string; flag: string; sub: string }[] = [
   { id: 'darija-ar', name: 'دارجة', flag: '🇲🇦', sub: 'بالحروف العربية' },
-  { id: 'darija-lat', name: 'Darija', flag: '🇲🇦', sub: 'b 7rof Latin' },
   { id: 'fr', name: 'Français', flag: '🇫🇷', sub: 'En français' },
   { id: 'en', name: 'English', flag: '🇬🇧', sub: 'In English (SUM, IF...)' },
 ];

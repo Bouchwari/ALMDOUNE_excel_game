@@ -24,10 +24,11 @@ interface Props {
   onPlayGame: (game: 'cell' | 'formula' | 'speed') => void;
   onDailyChallenge: () => void;
   onQuickQuiz: () => void;
+  onClassChallenge: () => void;
   isChallengeAvailable: boolean;
 }
 
-export function GamesScreen({ progress, onPlayGame, onDailyChallenge, onQuickQuiz, isChallengeAvailable }: Props) {
+export function GamesScreen({ progress, onPlayGame, onDailyChallenge, onQuickQuiz, onClassChallenge, isChallengeAvailable }: Props) {
   const { S } = useLanguage();
   const { colors } = useTheme();
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
@@ -58,6 +59,19 @@ export function GamesScreen({ progress, onPlayGame, onDailyChallenge, onQuickQui
       </View>
 
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+
+        <TouchableOpacity style={styles.classCard} onPress={onClassChallenge} activeOpacity={0.85}>
+          <View style={styles.classCardLeft}>
+            <Text style={styles.classIcon}>👨‍🏫</Text>
+            <View style={styles.classInfo}>
+              <Text style={styles.classTitle}>{S.classChallengeTitle}</Text>
+              <Text style={styles.classDesc}>{S.classChallengeSubtitle}</Text>
+            </View>
+          </View>
+          <View style={styles.classArrow}>
+            <Text style={styles.classArrowText}>▶</Text>
+          </View>
+        </TouchableOpacity>
 
         <Text style={styles.sectionLabel}>🔥 {S.dailyChallengeTitle}</Text>
         <View style={styles.quickRow}>
@@ -160,6 +174,21 @@ const makeStyles = (c: ColorPalette) => StyleSheet.create({
   },
   xpText: { color: c.primary, fontWeight: '700', fontSize: 14 },
   scroll: { padding: spacing.lg, gap: spacing.md, paddingBottom: spacing.huge },
+  classCard: {
+    backgroundColor: '#E8F5E9', borderRadius: radius.lg,
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    padding: spacing.lg, borderLeftWidth: 5, borderLeftColor: '#43A047', ...shadow.card,
+  },
+  classCardLeft: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, flex: 1 },
+  classIcon: { fontSize: 36 },
+  classInfo: { flex: 1, gap: 2 },
+  classTitle: { fontSize: 16, fontWeight: '800', color: '#2E7D32' },
+  classDesc: { fontSize: 12, color: '#388E3C', lineHeight: 18 },
+  classArrow: {
+    width: 36, height: 36, borderRadius: radius.full,
+    backgroundColor: '#43A047', alignItems: 'center', justifyContent: 'center',
+  },
+  classArrowText: { color: '#FFFFFF', fontSize: 14, fontWeight: '800' },
   sectionLabel: {
     fontSize: 13, fontWeight: '700', color: c.textMuted,
     textTransform: 'uppercase', letterSpacing: 0.8, marginTop: spacing.sm,

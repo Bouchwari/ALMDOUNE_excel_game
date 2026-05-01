@@ -15,33 +15,6 @@ export interface GenderedStrings {
   wellDone: GenderedPair;
 }
 
-const DARIJA_LAT: GenderedStrings = {
-  result3: {
-    male:   'Mzyan bzaf! Nta star! ⭐⭐⭐',
-    female: 'Mzyana bzaf! Nti star! ⭐⭐⭐',
-  },
-  result2: {
-    male:   'Mzyan! Zid 3la haka! ⭐⭐',
-    female: 'Mzyana! Zidi 3la haka! ⭐⭐',
-  },
-  result1: {
-    male:   'Ma3lich, zid 7awel! 💪⭐',
-    female: 'Ma3lich, zidi 7awli! 💪⭐',
-  },
-  result0: {
-    male:   'Ma3lich, 3awed 7awel! 😊',
-    female: 'Ma3lich, 3awdi 7awli! 😊',
-  },
-  welcomeBack: {
-    male:   'Merhba bik! 👋',
-    female: 'Merhba bik! 👋',
-  },
-  wellDone: {
-    male:   'Bravo! 🎉',
-    female: 'Bravo! 🎉',
-  },
-};
-
 const DARIJA_AR: GenderedStrings = {
   result3: {
     male:   'مزيان بزاف! نتا ستار! ⭐⭐⭐',
@@ -124,7 +97,6 @@ const ENGLISH: GenderedStrings = {
 };
 
 export const GENDERED_STRINGS: Record<AppLanguage, GenderedStrings> = {
-  'darija-lat': DARIJA_LAT,
   'darija-ar':  DARIJA_AR,
   'fr':         FRENCH,
   'en':         ENGLISH,
