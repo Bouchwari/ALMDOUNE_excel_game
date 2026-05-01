@@ -33,6 +33,7 @@ export function FriendChallengePlayScreen({ exercises, role, hostName, onComplet
 
   const startTime = useRef(Date.now());
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const completedRef = useRef(false);
   const flashAnim = useRef(new Animated.Value(1)).current;
   const shakeAnim = useRef(new Animated.Value(0)).current;
 
@@ -52,6 +53,8 @@ export function FriendChallengePlayScreen({ exercises, role, hostName, onComplet
 
   const exercise = exercises[idx];
   const isLast = idx === exercises.length - 1;
+
+  if (!exercise) return <View style={{ flex: 1, backgroundColor: colors.background }} />;
   const progressPct = (idx / exercises.length) * 100;
 
   const flashGreen = () => {
@@ -78,6 +81,8 @@ export function FriendChallengePlayScreen({ exercises, role, hostName, onComplet
 
   const handleNext = () => {
     if (isLast) {
+      if (completedRef.current) return;
+      completedRef.current = true;
       if (timerRef.current) clearInterval(timerRef.current);
       const finalCorrect = correct + (answerState === 'correct' ? 1 : 0);
       onComplete(Math.round((finalCorrect / exercises.length) * 100), elapsed);

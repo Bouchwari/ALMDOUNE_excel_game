@@ -22,15 +22,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    AsyncStorage.getItem(STORAGE_KEY).then(val => {
-      if (val === 'true') setIsDark(true);
-    });
+    AsyncStorage.getItem(STORAGE_KEY)
+      .then(val => { if (val === 'true') setIsDark(true); })
+      .catch(() => {});
   }, []);
 
   const toggleTheme = useCallback(() => {
     setIsDark(prev => {
       const next = !prev;
-      AsyncStorage.setItem(STORAGE_KEY, String(next));
+      AsyncStorage.setItem(STORAGE_KEY, String(next)).catch(() => {});
       return next;
     });
   }, []);

@@ -364,6 +364,18 @@ function AppInner() {
   }, [saveSettings, setLanguage]);
 
   const defaultBarStyle = isDark ? 'light-content' : 'dark-content';
+
+  // Must be above all early returns — calling a hook after a conditional return
+  // causes React to see a different hook count per render and crash immediately.
+  const tabBarStyle = React.useMemo(() => ({
+    backgroundColor: colors.surface,
+    borderTopColor: colors.border,
+    borderTopWidth: 1,
+    height: 64,
+    paddingBottom: 8,
+    paddingTop: 4,
+  }), [colors]);
+
   const wrap = (statusBg: string, child: React.ReactNode, barStyle?: 'dark-content' | 'light-content') => (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
@@ -435,14 +447,6 @@ function AppInner() {
 
   // ── Main tabs ──
   const modLessons = selectedModuleId ? getLessonUC.getLessonsForModule(selectedModuleId) : [];
-  const tabBarStyle = React.useMemo(() => ({
-    backgroundColor: colors.surface,
-    borderTopColor: colors.border,
-    borderTopWidth: 1,
-    height: 64,
-    paddingBottom: 8,
-    paddingTop: 4,
-  }), [colors]);
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
