@@ -1,6 +1,6 @@
 # ExcelStar – Project Guide
 **School:** الثانوية الإعدادية ألمدون — Lycée Collégial Almdoun  
-**Version:** 1.1.0 (versionCode 2)  
+**Version:** 1.2.0 (versionCode 3)  
 **GitHub:** https://github.com/Bouchwari/ALMDOUNE_excel_game  
 **EAS Project:** https://expo.dev/accounts/bhi1212/projects/excelstar-almdoun  
 
@@ -8,9 +8,9 @@
 
 ## What is this app?
 
-ExcelStar is an offline Android gamified learning app for teaching Excel/Informatique to students at Almdoun school. Students learn through lessons, exercises, mini-games, and daily challenges, earning XP and leveling up as they progress.
+ExcelStar is an **offline Android** gamified learning app for teaching Excel/Informatique to students at Almdoun school. Students learn through lessons, exercises, mini-games, daily challenges, and now local P2P friend challenges via QR codes — earning XP and leveling up as they progress.
 
-**Target:** Android 8+ (low-end devices, 2 GB RAM), offline only, no backend.
+**Target:** Android 8+ (low-end devices, 2 GB RAM), **fully offline, no backend.**
 
 ---
 
@@ -18,11 +18,13 @@ ExcelStar is an offline Android gamified learning app for teaching Excel/Informa
 
 | Layer | Technology |
 |---|---|
-| Framework | React Native + Expo SDK 54 |
-| Language | TypeScript (strict, no `any`) |
-| Architecture | DDD (Domain-Driven Design) |
-| Storage | AsyncStorage (offline, local) |
-| Build | EAS Build (cloud APK) |
+| Framework | React Native + Expo SDK 54, managed workflow |
+| Language | TypeScript strict (no `any`) |
+| Architecture | DDD (domain → application → infrastructure → presentation → shared) |
+| Storage | AsyncStorage (offline, local only) |
+| Camera | expo-camera (`CameraView`, `useCameraPermissions`) |
+| QR generation | react-native-qrcode-svg (uses react-native-svg) |
+| Build | GitHub Actions (local Gradle, free) + EAS cloud (manual only) |
 | Package | `com.excelstar.almdoun` |
 
 ---
@@ -31,251 +33,293 @@ ExcelStar is an offline Android gamified learning app for teaching Excel/Informa
 
 ```
 ExcelStar/
-├── app.json                        # Expo config, version, package name
-├── App.tsx                         # Root: state machine, navigation logic
-├── assets/images/school_logo.png   # App icon + splash
+├── app.json                          # Expo config, version, plugins, package name
+├── App.tsx                           # Root state machine + all app-level state
+├── assets/images/school_logo.png     # App icon + splash
 ├── src/
-│   ├── domain/                     # Business logic (no React)
-│   │   ├── curriculum/             # Module, Lesson, Exercise types
-│   │   ├── progress/               # LessonResult, ProgressRepository interface
-│   │   └── student/                # Student, StudentProgress, StudentGender types
-│   ├── application/                # Use cases (execute() only)
-│   │   ├── curriculum/             # GetModulesUseCase, GetLessonsUseCase
-│   │   └── progress/               # SaveResultUseCase, GetLeaderboardUseCase
+│   ├── domain/
+│   │   ├── curriculum/               # Module, Lesson, Exercise types
+│   │   ├── multiplayer/
+│   │   │   └── FriendChallenge.ts    # QRPayload, PlayerResult, encode/decode helpers
+│   │   ├── progress/                 # LessonResult, ProgressRepository interface
+│   │   └── student/                  # Student, StudentProgress, StudentGender types
+│   ├── application/
+│   │   ├── curriculum/               # GetModulesUseCase, GetLessonUseCase
+│   │   └── progress/                 # SaveProgressUseCase, AwardBadgeUseCase, GetLeaderboardUseCase
 │   ├── infrastructure/
-│   │   ├── data/curriculumData.ts  # All lessons, modules, exercises (EDIT THIS to change content)
-│   │   └── storage/                # AsyncStorage implementations
+│   │   ├── data/curriculumData.ts    # ALL lesson/exercise content — edit here to change curriculum
+│   │   └── storage/                  # AsyncStorageStudentRepo, AsyncStorageProgressRepo
 │   ├── presentation/
-│   │   ├── screens/                # All screens (HomeScreen, LessonScreen, etc.)
-│   │   ├── components/             # Reusable UI (XPBar, ModuleCard, etc.)
-│   │   └── theme/                  # colors.ts, spacing.ts
+│   │   ├── screens/                  # All screens (see list below)
+│   │   ├── components/               # Reusable UI (XPBar, ModuleCard, StreakCalendar, etc.)
+│   │   └── theme/                    # colors.ts, spacing.ts (makeStyles pattern)
 │   └── shared/
 │       ├── constants/
-│       │   ├── strings.ts          # ALL UI text in 4 languages (EDIT THIS for translations)
-│       │   ├── genderedStrings.ts  # Gender-aware strings (result messages, welcome)
-│       │   └── gamification.ts     # LEVELS array (XP thresholds, badges)
-│       ├── context/LanguageContext.tsx  # Language + gender state (useLanguage hook)
-│       └── hooks/
-│           ├── useProgress.ts      # XP, level, badges, awardGameXP()
-│           └── useStudents.ts      # Student list, create, switch profile
+│       │   ├── strings.ts            # ALL UI text in 4 languages — edit here for translations
+│       │   ├── genderedStrings.ts    # Gender-aware result/welcome strings
+│       │   └── gamification.ts       # LEVELS array (XP thresholds, badges)
+│       ├── context/
+│       │   ├── LanguageContext.tsx   # Language + gender state (useLanguage hook → S, G, g())
+│       │   └── ThemeContext.tsx      # Dark/light theme (useTheme hook → colors)
+│       ├── hooks/
+│       │   ├── useProgress.ts        # XP, level, badges, awardGameXP()
+│       │   └── useStudent.ts         # Student list, create, switch profile
+│       └── utils/
+│           ├── challengeEngine.ts    # generateFriendChallenge(), getExercisesByPoolIds()
+│           ├── starCalculator.ts     # calculateStars(score) — ALWAYS use this, never manual math
+│           └── xpCalculator.ts       # XP calculation helpers
 ```
 
 ---
 
 ## Navigation (App.tsx State Machine)
 
-There is **no React Navigation library** — screens are switched by state:
+**No React Navigation library** — screens switched by a single state variable:
+
+```typescript
+type AppScreen =
+  'splash' | 'main' | 'modules' | 'lesson' | 'result' |
+  'simulator' | 'challenge' | 'quiz' | 'games' |
+  'cellGame' | 'formulaGame' | 'speedGame' | 'settings' |
+  'friend-hub' | 'friend-play' | 'friend-qr' | 'friend-scan' | 'friend-result';
+```
+
+The `wrap()` helper in App.tsx adds `GestureHandlerRootView` + `SafeAreaProvider` + `StatusBar`.
+
+### Key app-level state in App.tsx
+
+```typescript
+// Friend challenge
+const [friendExercises, setFriendExercises] = useState<Exercise[]>([]);
+const [friendRole, setFriendRole] = useState<'host' | 'guest'>('host');
+const [friendPoolIds, setFriendPoolIds] = useState<string[]>([]);
+const [friendQRPayload, setFriendQRPayload] = useState<QRPayload | null>(null);
+const [friendHostResult, setFriendHostResult] = useState<PlayerResult | null>(null);
+const [friendGuestResult, setFriendGuestResult] = useState<PlayerResult | null>(null);
+```
+
+---
+
+## All Screens
+
+| Screen | File | Description |
+|---|---|---|
+| Onboarding | `OnboardingScreen.tsx` | Language → 3-step intro (animated) → Name/Avatar → Gender |
+| Home | `HomeScreen.tsx` | Profile card, XP bar, streak calendar, quick actions, module list |
+| Module List | `ModuleListScreen.tsx` | Module grid → lesson list |
+| Lesson | `LessonScreen.tsx` | Exercises with hints |
+| Result | `ResultScreen.tsx` | Stars, XP earned, retry/next |
+| Games Hub | `GamesScreen.tsx` | Entry point for games |
+| Cell Navigator | `CellNavigatorGame.tsx` | Tap the correct cell |
+| Formula Fixer | `FormulaFixerGame.tsx` | Fix broken Excel formulas |
+| Speed Quiz | `SpeedQuizGame.tsx` | Fast-answer quiz |
+| Simulator | `SimulatorScreen.tsx` | Mini Excel spreadsheet |
+| Settings | `SettingsScreen.tsx` | Language, gender, sound, notifications |
+| Friend Hub | `FriendChallengeScreen.tsx` | 4-step guide + Create / Scan buttons |
+| Friend Play | `FriendChallengePlayScreen.tsx` | Quiz with live elapsed timer, color-coded by role |
+| Friend QR | `FriendChallengeQRScreen.tsx` | Shows host score + QR code for guest to scan |
+| Friend Scan | `FriendChallengeScanScreen.tsx` | Camera with custom corner-frame overlay, scans QR |
+| Friend Result | `FriendChallengeResultScreen.tsx` | Side-by-side PlayerCard, winner by score then time |
+
+---
+
+## Friend Challenge — How it works (QR P2P, no WiFi needed)
 
 ```
-AppScreen = 'language' | 'onboarding' | 'home' | 'modules' | 'lesson'
-          | 'result' | 'simulator' | 'challenge' | 'quiz' | 'games'
-          | 'cellGame' | 'formulaGame' | 'speedGame' | 'settings'
+Host plays quiz → scores tracked locally
+       ↓
+FriendChallengeQRScreen: QR generated with encoded payload
+       ↓
+Guest scans QR → FriendChallengeScanScreen (expo-camera)
+       ↓
+Guest plays same questions → scores compared locally
+       ↓
+FriendChallengeResultScreen: side-by-side cards, winner = higher score (time tiebreak)
 ```
 
-The `wrap()` helper in App.tsx adds `GestureHandlerRootView` + `SafeAreaProvider` + `StatusBar` to every screen.
+### QR Payload format (compact JSON)
+```typescript
+interface QRPayload {
+  v: 1;           // schema version
+  q: string[];    // pool question IDs
+  p: string;      // host player name
+  a: string;      // host avatar emoji
+  s: number;      // host score (%)
+  st: number;     // host stars
+  ti: number;     // host time (seconds)
+}
+```
+
+Encoded/decoded via `encodeChallenge()` / `decodeChallenge()` in `src/domain/multiplayer/FriendChallenge.ts`.
+
+---
+
+## Curriculum Modules
+
+| ID | Title | Topics |
+|---|---|---|
+| mod1 | Interface Excel | Ribbon, cells, navigation |
+| mod2 | Saisie & Formatage | Data entry, formatting |
+| mod3 | Formules de Base | SUM, AVERAGE, MIN, MAX |
+| mod4 | Fonctions SI | IF, nested IF, conditions |
+| mod5 | Graphiques | Chart types, creation |
+| mod6 | Mise en Forme Avancée | Conditional formatting |
+| mod7 | Fonctions Avancées | VLOOKUP, INDEX/MATCH |
+| mod8 | Fonctions NB & SI | NB, NBVAL, NB.VIDE, NB.SI, SOMME.SI, MOYENNE.SI |
+| mod9 | Fonctions de Texte | CONCATENER, MAJUSCULE, GAUCHE, DROITE, SUPPRESPACE, SUBSTITUE |
+
+Each module has lessons; each lesson has exercises. Edit `src/infrastructure/data/curriculumData.ts` to change content.
 
 ---
 
 ## Language System
 
-4 languages are supported:
-
 | ID | Name | RTL |
 |---|---|---|
-| `darija-lat` | Darija (Latin letters) | No |
-| `darija-ar` | دارجة (Arabic letters) | Yes |
+| `darija-lat` | Darija (Latin) | No |
+| `darija-ar` | دارجة (Arabic) | Yes |
 | `fr` | Français | No |
 | `en` | English | No |
 
-### How it works
-
-1. User picks language on first launch (`LanguageSelectScreen`)
-2. Saved in `AppSettings.language` via AsyncStorage
-3. `LanguageContext` exposes `S` (all UI strings), `language`, `isRTL`, `gender`, `G` (gendered strings)
-4. Every component reads from `S.xxx` — **never hardcode UI text**
-5. RTL layout uses `S.isRTL` flag in `StyleSheet` (e.g. `textAlign: S.isRTL ? 'right' : 'left'`)
-
-### Adding/editing translations
-
-Edit `src/shared/constants/strings.ts`:
-- `DARIJA_LAT` — Latin Darija  
-- `DARIJA_AR` — Arabic-script Darija  
-- `FRENCH` — French  
-- `ENGLISH` — English  
-
-All 4 objects must have identical keys (TypeScript will error if one is missing).
-
-### Editing curriculum content
-
-Edit `src/infrastructure/data/curriculumData.ts`:
-- `titleFr` — French/Excel title (kept in French for technical terms)
-- `titleDarija` — Darija subtitle shown under the title
-- Exercise `question`, `options`, `explanation` — the lesson content
+- `useLanguage()` exposes `S` (all strings), `language`, `isRTL`, `gender`, `G` (gendered strings), `g(male, female)` helper
+- **Never hardcode UI text** — always use `S.xxx`
+- RTL: use `S.isRTL` flag in StyleSheet (`textAlign`, `writingDirection`, arrow direction)
+- Edit `src/shared/constants/strings.ts` — all 4 language objects must have identical keys
 
 ---
 
-## Gender System
+## Styling Pattern
 
-Students have a gender (`'male'` | `'female'`). This affects result messages and welcome text.
+```typescript
+// Every component uses this pattern:
+const styles = React.useMemo(() => makeStyles(colors), [colors]);
 
-- Set during onboarding (👦 Weld / 👧 Bent step)
-- Changeable in Settings screen
-- `useLanguage()` exposes `gender`, `setGender`, `G` (gendered strings), and `g(male, female)` helper
-- Gendered string definitions are in `src/shared/constants/genderedStrings.ts`
+const makeStyles = (c: ColorPalette) => StyleSheet.create({ ... });
+```
+
+Import spacing/radius/shadow from `src/presentation/theme/spacing.ts`. Never use raw numbers for padding/margin/radius.
+
+---
+
+## Key Rules (enforced by code review)
+
+1. **Stars**: Always use `calculateStars(score)` from `starCalculator.ts` — never `Math.floor(score / 34)`
+2. **Dates for streaks**: Use local date parts (not `toISOString()`) to avoid UTC/DST mismatch
+3. **AsyncStorage migration**: Use `?? []` guard on `activeDates` for backward compatibility
+4. **Streak cap**: `activeDates` capped at 90 entries (`.slice(-90)`)
+5. **No hardcoded text**: all UI strings must be in `strings.ts`
+6. **`makeStyles(c)` factory**: every screen/component uses this — no inline color values
 
 ---
 
 ## XP & Level System
 
-Defined in `src/shared/constants/gamification.ts`:
-
-| Level | Name (Latin) | Name (Arabic) | XP Required | Badge |
-|---|---|---|---|---|
-| 1 | Mbtadi | مبتدئ | 0 | 🌱 |
-| 2 | Talmid | تلميذ | 100 | 📚 |
-| 3 | Motawasset | متوسط | 300 | ⭐ |
-| 4 | Mtaqqan | متقن | 600 | 🔥 |
-| 5 | Expert | خبير | 1000 | 💎 |
-| 6 | Excel Star | نجم إكسيل | 1500 | 🏆 |
-
-### XP sources
+| Level | Name | XP |
+|---|---|---|
+| 1 | Mbtadi 🌱 | 0 |
+| 2 | Talmid 📚 | 100 |
+| 3 | Motawasset ⭐ | 300 |
+| 4 | Mtaqqan 🔥 | 600 |
+| 5 | Expert 💎 | 1000 |
+| 6 | Excel Star 🏆 | 1500 |
 
 | Action | XP |
 |---|---|
-| Lesson (3 stars) | 30 XP |
-| Lesson (2 stars) | 20 XP |
-| Lesson (1 star) | 10 XP |
-| Hint NOT used bonus | +20 XP |
-| Daily Challenge | +50 XP |
-| Quick Quiz | +30 XP |
-| Mini-game (Cell Navigator) | +80 XP |
-| Mini-game (Formula Fixer) | +100 XP |
-| Mini-game (Speed Quiz) | +120 XP |
-
----
-
-## Screens
-
-| Screen | File | Description |
-|---|---|---|
-| Language Select | `LanguageSelectScreen.tsx` | First launch, pick language |
-| Onboarding | `OnboardingScreen.tsx` | Name → Avatar → Gender (3 steps) |
-| Home | `HomeScreen.tsx` | Profile card, XP bar, continue card, quick actions |
-| Modules | `ModuleListScreen.tsx` | Module list → Lesson list |
-| Lesson | `LessonScreen.tsx` | Exercises with hints |
-| Result | `ResultScreen.tsx` | Stars, XP earned, retry/next |
-| Games Hub | `GamesScreen.tsx` | Daily challenge + 3 mini-games |
-| Cell Navigator | `CellNavigatorGame.tsx` | Tap the correct cell |
-| Formula Fixer | `FormulaFixerGame.tsx` | Fix broken Excel formulas |
-| Speed Quiz | `SpeedQuizGame.tsx` | Fast-answer quiz |
-| Daily Challenge | `DailyChallengeScreen.tsx` | 5 questions, one per day |
-| Quick Quiz | `QuickQuizScreen.tsx` | Random questions |
-| Simulator | `SimulatorScreen.tsx` | Mini Excel spreadsheet |
-| Settings | `SettingsScreen.tsx` | Language, gender, sound, notifications |
+| Lesson 3★ | 30 |
+| Lesson 2★ | 20 |
+| Lesson 1★ | 10 |
+| No-hint bonus | +20 |
+| Daily Challenge | +50 |
+| Quick Quiz | +30 |
+| Cell Navigator | +80 |
+| Formula Fixer | +100 |
+| Speed Quiz | +120 |
 
 ---
 
 ## Building an APK
 
-### Prerequisites
+### Option A — GitHub Actions (free, recommended)
 
-1. Install EAS CLI: `npm install -g eas-cli`
-2. Login: `npx eas login` (account: `bhi1212`)
-3. Must be inside `ExcelStar/` folder
+Push to `main` → Actions tab → `Build Android APK` workflow runs automatically → download artifact `ExcelStar-v1.2.0`.
 
-### Build command
+Or trigger manually from the Actions tab.
 
-```bash
-cd ExcelStar
-npx eas build -p android --profile preview --non-interactive
-```
-
-The build runs in the cloud (Expo servers). Takes ~10–15 minutes.  
-Download the `.apk` from the link printed in the terminal or from:  
-**https://expo.dev/accounts/bhi1212/projects/excelstar-almdoun/builds**
-
-### Build profiles (eas.json)
-
-| Profile | Output | Use |
-|---|---|---|
-| `preview` | `.apk` (sideload) | Testing on device |
-| `production` | `.aab` (Google Play) | Play Store upload |
-
----
-
-## Pushing to GitHub
+### Option B — EAS Cloud (costs credits)
 
 ```bash
-cd ExcelStar
-git add <files>
-git commit -m "your message"
-git push origin main
+eas build -p android --profile preview --non-interactive
 ```
 
-Remote: `https://github.com/Bouchwari/ALMDOUNE_excel_game`
+Manual only (set to `workflow_dispatch` in `.github/workflows/main.yml`).
+
+### Bump version before a release
+
+1. `app.json` → `"version"` (e.g. `"1.3.0"`)
+2. `app.json` → `"android.versionCode"` (increment by 1)
+3. Update artifact name in `.github/workflows/build-android.yml` line `name: ExcelStar-vX.X.X`
 
 ---
 
 ## Common Tasks
 
-### Add a new lesson
-
+### Add a lesson
 1. Open `src/infrastructure/data/curriculumData.ts`
-2. Find the correct module in `MODULES` array
-3. Add a `Lesson` object with exercises to that module's `lessons` array
-4. Run `npx tsc --noEmit` to verify — no errors = ready to build
+2. Find the module, add a `Lesson` object with exercises
+3. Run `./node_modules/.bin/tsc --noEmit` — no errors = ready
 
-### Add a new UI string
+### Add a UI string
+1. Add key to `AppStrings` interface in `strings.ts`
+2. Add value to all 4 language objects
+3. Use: `const { S } = useLanguage(); S.yourKey`
 
-1. Add the key to the `AppStrings` interface in `strings.ts`
-2. Add the value to ALL 4 language objects (DARIJA_LAT, DARIJA_AR, FRENCH, ENGLISH)
-3. Use it in your component: `const { S } = useLanguage(); ... S.yourKey`
-
-### Change app version
-
-- `app.json` → `"version"` (user-visible, e.g. "1.1.0")
-- `app.json` → `"android.versionCode"` (integer, increment by 1 each release)
-
-### Reset a student's progress (dev)
-
-Clear AsyncStorage via the Expo Go dev menu, or uninstall/reinstall the app.
+### Add a new screen
+1. Create `src/presentation/screens/YourScreen.tsx` (use `makeStyles(c)` pattern)
+2. Add screen ID to `AppScreen` type in `App.tsx`
+3. Add state handler + render case in App.tsx
 
 ---
 
-## What was built (v1.0 → v1.1)
+## Changelog
 
-### v1.0 — Initial release
-- 6 Excel modules with lessons and exercises
-- XP system, level progression, badges
-- Daily challenge, quick quiz
-- 3 mini-games: Cell Navigator, Formula Fixer, Speed Quiz
-- Excel Simulator (mini spreadsheet)
-- Offline storage with AsyncStorage
-- 4-language support (darija-lat, darija-ar, fr, en)
+### v1.2.0 (current)
+- **Friend Challenge (P2P QR)**: No WiFi needed. Host plays → QR generated → guest scans → same questions → local result comparison. Uses `expo-camera` + `react-native-qrcode-svg`.
+- **Module 8**: NB.SI / SOMME.SI / MOYENNE.SI (conditional counting and summing, ~20 exercises)
+- **Module 9**: Text functions — CONCATENER, MAJUSCULE, GAUCHE, DROITE, SUPPRESPACE, SUBSTITUE (~24 exercises)
+- **Animations**: OnboardingScreen step fade+slide+emoji bounce, CTA button press scale, ModuleCard entrance slide-up
+- **Accessibility**: `accessibilityLabel` + `accessibilityRole` on avatar button, continue card, and all QuickActionBtns
+- **CI fix**: GitHub Actions — Node 24, no cache (avoids 400 errors), local `./node_modules/.bin/expo prebuild`, EAS build manual-only
 
-### v1.1 — Gender system + i18n fix + cleanup
-- **Gender system**: onboarding gender step (👦/👧), gender-aware result messages, changeable in Settings
-- **i18n fix**: all UI strings now come from the language system — switching to Arabic-script Darija (darija-ar) now correctly shows Arabic text in every screen
-- **Level names in Arabic**: XPBar and HomeScreen show Arabic level names (مبتدئ, تلميذ…) in Arabic mode
-- **RTL-aware arrows**: buttons and navigation arrows flip direction in Arabic mode
-- **Curriculum translated**: all lesson content translated to Arabic-script Darija
-- **Code cleanup**: removed Teacher mode (offline app, not needed), removed unused files (TeacherScreen, BadgesScreen, BadgeCard, ComparisonTable, typography.ts, routes.ts, darija.ts)
-- **Error handling**: all AsyncStorage calls wrapped in try/catch with safe fallbacks
-- **Game XP**: game XP now actually saves to student progress (was broken before)
+### v1.1.0
+- Gender system: onboarding gender step, gender-aware messages, changeable in Settings
+- Full Arabic-script Darija (darija-ar) support across all screens
+- RTL-aware layout and arrows
+- Game XP now correctly saved to student progress
+- Removed Teacher mode and unused files
+
+### v1.0.0
+- 6 Excel modules, XP/level/badge system
+- Daily challenge, quick quiz, 3 mini-games, Excel simulator
+- 4-language support, offline AsyncStorage
 
 ---
 
-## Important Files to Know
+## Important Files Quick Reference
 
-| File | Why |
+| File | Purpose |
 |---|---|
-| `src/infrastructure/data/curriculumData.ts` | Edit this to change/add lesson content |
-| `src/shared/constants/strings.ts` | Edit this to change any UI text or add translations |
-| `src/shared/constants/gamification.ts` | XP thresholds, level names, badges |
-| `app.json` | App name, version, package, icon |
-| `App.tsx` | Root screen switcher and all app-level state |
-| `eas.json` | Build profiles for APK/AAB |
+| `App.tsx` | Root state machine, all screen transitions, friend challenge state |
+| `src/infrastructure/data/curriculumData.ts` | All lesson/exercise content |
+| `src/shared/constants/strings.ts` | All UI text (4 languages) |
+| `src/shared/constants/gamification.ts` | XP thresholds, levels, badges |
+| `src/shared/utils/challengeEngine.ts` | Question pool + `generateFriendChallenge()` |
+| `src/shared/utils/starCalculator.ts` | `calculateStars(score)` — always use this |
+| `src/domain/multiplayer/FriendChallenge.ts` | QR payload types + encode/decode |
+| `app.json` | Version, package name, plugins (expo-camera, expo-notifications) |
+| `eas.json` | Build profiles (preview=APK, production=AAB) |
+| `.github/workflows/build-android.yml` | CI: auto-build APK on push to main |
+| `.github/workflows/main.yml` | EAS cloud build (manual trigger only) |
 
 ---
 
-*Generated 2026-04-27 — ExcelStar v1.1.0*
+*Updated 2026-05-01 — ExcelStar v1.2.0*
