@@ -507,6 +507,7 @@ function AppInner() {
                 <LeaderboardScreen
                   entries={leaderboard}
                   currentStudentId={currentStudent?.id ?? ''}
+                  onRefresh={loadLeaderboard}
                 />
               )}
             </Tab.Screen>

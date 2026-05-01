@@ -134,6 +134,8 @@ export interface AppStrings {
   leaderboardTitle: string;
   leaderboardEmpty: string;
   leaderboardBotLabel: string;
+  leaderboardOnlyOne: string;
+  leaderboardYouHere: string;
 
   // Theme
   darkMode: string;
@@ -285,6 +287,8 @@ const DARIJA_LAT: AppStrings = {
   leaderboardTitle: 'L-Meydane 🏆',
   leaderboardEmpty: 'Mazal ma kayen 7add. Bda t3alm!',
   leaderboardBotLabel: '🤖 Demo',
+  leaderboardOnlyOne: 'Dir as7abek ydkhlo l-app bash tshof trtib! 🏆',
+  leaderboardYouHere: '← nta hna',
   darkMode: '🌙 Dark Mode',
   searchModules: '🔍 Qlab 3la dars...',
   shareProgress: '📤 Share',
@@ -424,6 +428,8 @@ const DARIJA_AR: AppStrings = {
   leaderboardTitle: 'الميدان 🏆',
   leaderboardEmpty: 'مازال ما كاين حد. بدا تعلم!',
   leaderboardBotLabel: '🤖 ديمو',
+  leaderboardOnlyOne: 'دير أصحابك يدخلو ل-app باش تشوف الترتيب! 🏆',
+  leaderboardYouHere: '← نتا هنا',
   darkMode: '🌙 وضع مظلم',
   searchModules: '🔍 ابحث عن درس...',
   shareProgress: '📤 شارك',
@@ -563,6 +569,8 @@ const FRENCH: AppStrings = {
   leaderboardTitle: 'Classement 🏆',
   leaderboardEmpty: 'Pas encore de joueurs. Commencez à apprendre!',
   leaderboardBotLabel: '🤖 Demo',
+  leaderboardOnlyOne: 'Invite tes amis à installer l\'app pour voir le classement! 🏆',
+  leaderboardYouHere: '← toi ici',
   darkMode: '🌙 Mode sombre',
   searchModules: '🔍 Rechercher un cours...',
   shareProgress: '📤 Partager',
@@ -702,6 +710,8 @@ const ENGLISH: AppStrings = {
   leaderboardTitle: 'Leaderboard 🏆',
   leaderboardEmpty: 'No players yet. Start learning!',
   leaderboardBotLabel: '🤖 Demo',
+  leaderboardOnlyOne: 'Ask friends to install the app to see the ranking! 🏆',
+  leaderboardYouHere: '← you',
   darkMode: '🌙 Dark Mode',
   searchModules: '🔍 Search for a module...',
   shareProgress: '📤 Share',
