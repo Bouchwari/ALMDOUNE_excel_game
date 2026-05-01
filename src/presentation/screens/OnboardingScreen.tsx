@@ -155,7 +155,9 @@ export function OnboardingScreen({ onComplete, onLanguageSelect }: Props) {
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <Animated.View style={[styles.stepContainer, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
-          <Animated.Text style={[styles.bigEmoji, { transform: [{ scale: emojiScale }] }]}>{current.emoji}</Animated.Text>
+          <Animated.View style={{ transform: [{ scale: emojiScale }] }}>
+            <Text style={styles.bigEmoji}>{current.emoji}</Text>
+          </Animated.View>
           <Text style={[styles.title, S.isRTL && styles.rtl]}>{current.title}</Text>
           <Text style={[styles.desc, S.isRTL && styles.rtl]}>{current.desc}</Text>
         </Animated.View>

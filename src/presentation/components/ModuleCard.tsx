@@ -34,7 +34,6 @@ function ModuleCardBase({ module, onPress }: Props) {
 
   return (
     <Animated.View style={[{
-      opacity: mountAnim,
       transform: [{ scale }, { translateY: mountAnim.interpolate({ inputRange: [0, 1], outputRange: [16, 0] }) }],
     }, !isUnlocked && styles.locked]}>
       <TouchableOpacity
