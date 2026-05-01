@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "ExcelStar – Almdoun",
+    "slug": "excelstar-almdoun",
+    "version": "1.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/school_logo.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/school_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFF0F8"
+    },
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/school_logo.png",
+        "backgroundColor": "#FFF0F8"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.excelstar.almdoun",
+      "versionCode": 3
+    },
+    "web": {
+      "favicon": "./assets/images/school_logo.png"
+    },
+    "plugins": [
+      "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow ExcelStar to use the camera to scan friend challenge QR codes."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/school_logo.png",
+          "color": "#217346"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2b106b2f-91f9-4021-ac1f-292130095646"
+      }
+    },
+    "owner": "bhi1212"
+  }
+}
