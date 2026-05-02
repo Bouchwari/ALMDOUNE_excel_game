@@ -50,6 +50,8 @@ export interface AppStrings {
   falseBtn: string;
   correctAnswer: string;
   reorderLabel: string;
+  fillBlankPlaceholder: string;
+  correctOrderLabel: string;
 
   // Result
   result3: string;
@@ -240,6 +242,8 @@ const DARIJA_AR: AppStrings = {
   falseBtn: 'غلط ✗',
   correctAnswer: 'الجواب الصحيح:',
   reorderLabel: 'رتب الأجزاء:',
+  fillBlankPlaceholder: 'كتب جوابك...',
+  correctOrderLabel: 'الترتيب الصحيح:',
   result3: 'مزيان بزاف! عندك النجمة ⭐⭐⭐',
   result2: 'مزيان! زيد على هاكا! ⭐⭐',
   result1: 'سير عرقن حتى لمن بعد ما عليش، حاول مرة أخرى! 💪⭐',
@@ -396,6 +400,8 @@ const FRENCH: AppStrings = {
   falseBtn: 'Faux ✗',
   correctAnswer: 'Bonne réponse:',
   reorderLabel: 'Réorganisez les parties:',
+  fillBlankPlaceholder: 'Écrivez votre réponse...',
+  correctOrderLabel: 'Ordre correct:',
   result3: 'Excellent! Vous êtes une star! ⭐⭐⭐',
   result2: 'Bien! Continuez! ⭐⭐',
   result1: 'Pas mal, réessayez! 💪⭐',
@@ -552,6 +558,8 @@ const ENGLISH: AppStrings = {
   falseBtn: 'False ✗',
   correctAnswer: 'Correct answer:',
   reorderLabel: 'Reorder the parts:',
+  fillBlankPlaceholder: 'Type your answer...',
+  correctOrderLabel: 'Correct order:',
   result3: 'Excellent! You are a star! ⭐⭐⭐',
   result2: 'Good job! Keep going! ⭐⭐',
   result1: 'Almost there, try again! 💪⭐',
