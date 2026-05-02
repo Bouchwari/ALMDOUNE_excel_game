@@ -48,7 +48,6 @@ import { calculateStars } from './src/shared/utils/starCalculator';
 
 import { generateChallenge, generateQuickQuiz, isChallengeAvailableToday } from './src/shared/utils/challengeEngine';
 import { AppSettings } from './src/domain/progress/ProgressRepository';
-import { AppLanguage } from './src/shared/constants/strings';
 
 const Tab = createBottomTabNavigator();
 const getLessonUC = new GetLessonUseCase();
@@ -111,7 +110,7 @@ const TAB_ICONS: Record<string, string> = {
 };
 
 function AppInner() {
-  const { S, language, setLanguage, setGender } = useLanguage();
+  const { S, setGender } = useLanguage();
   const { colors, isDark } = useTheme();
   const [screen, setScreen] = useState<AppScreen>('splash');
   const [lessonCtx, setLessonCtx] = useState<LessonContext | null>(null);
@@ -156,10 +155,6 @@ function AppInner() {
   );
 
   useEffect(() => {
-    if (settings?.language && settings.language !== language) setLanguage(settings.language);
-  }, [settings?.language]);
-
-  useEffect(() => {
     if (currentStudent?.gender) setGender(currentStudent.gender);
   }, [currentStudent?.gender]);
 
@@ -202,11 +197,6 @@ function AppInner() {
     else if (!settings?.currentStudentId) setScreen('profile-select');
     else setScreen('main');
   }, [loading, settings, students]);
-
-  const handleLanguageSelect = useCallback(async (lang: AppLanguage) => {
-    await saveSettings({ language: lang });
-    setLanguage(lang);
-  }, [saveSettings, setLanguage]);
 
   const handleOnboardingComplete = useCallback(async (name: string, avatar: string, gender: StudentGender) => {
     const student = await createStudent(name, avatar, gender);
@@ -386,7 +376,6 @@ function AppInner() {
 
   const handleSettingChange = useCallback(async (key: keyof AppSettings, value: boolean | string) => {
     await saveSettings({ [key]: value });
-    if (key === 'language') setLanguage(value as AppLanguage);
     if (key === 'notificationsEnabled') {
       if (value) {
         const granted = await requestNotificationPermission();
@@ -396,7 +385,7 @@ function AppInner() {
         cancelAllNotifications();
       }
     }
-  }, [saveSettings, setLanguage]);
+  }, [saveSettings]);
 
   const defaultBarStyle = isDark ? 'light-content' : 'dark-content';
 
@@ -424,7 +413,7 @@ function AppInner() {
     return wrap(colors.splashBg, <SplashScreen onFinish={handleSplashFinish} />);
 
   if (screen === 'onboarding')
-    return wrap(colors.splashBg, <OnboardingScreen onComplete={handleOnboardingComplete} onLanguageSelect={handleLanguageSelect} />);
+    return wrap(colors.splashBg, <OnboardingScreen onComplete={handleOnboardingComplete} />);
 
   if (screen === 'profile-select')
     return wrap(colors.splashBg, <ProfileSelectScreen students={students} onSelect={handleProfileSelect} onCreateNew={() => setScreen('onboarding')} onDelete={deleteStudent} />);
@@ -433,7 +422,7 @@ function AppInner() {
     return wrap(colors.white, <LessonScreen lesson={currentLesson} onComplete={handleLessonComplete} onBack={() => setScreen('main')} />);
 
   if (screen === 'exercise' && currentLesson)
-    return wrap(colors.white, <ExerciseScreen exercises={currentLesson.exercises} lessonTitle={language === 'darija-ar' ? currentLesson.titleDarija : currentLesson.titleFr} onComplete={handleExerciseComplete} onBack={() => setScreen('main')} />);
+    return wrap(colors.white, <ExerciseScreen exercises={currentLesson.exercises} lessonTitle={currentLesson.titleDarija} onComplete={handleExerciseComplete} onBack={() => setScreen('main')} />);
 
   if (screen === 'challenge')
     return wrap(colors.white, <ExerciseScreen exercises={challengeExercises} lessonTitle={S.challengeTitle} onComplete={handleChallengeComplete} onBack={() => setScreen('main')} />);

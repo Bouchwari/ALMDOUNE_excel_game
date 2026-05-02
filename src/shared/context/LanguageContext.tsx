@@ -1,6 +1,8 @@
+// TODO (Google Play expansion): Restore setLanguage, initialLanguage prop, and onLanguageChange
+// when adding 'fr' | 'en' back to AppLanguage
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { AppLanguage, AppStrings, LANGUAGE_STRINGS } from '../constants/strings';
-import { GENDERED_STRINGS, GenderedStrings, pickGendered } from '../constants/genderedStrings';
+import { GENDERED_STRINGS, GenderedStrings } from '../constants/genderedStrings';
 import { StudentGender } from '../../domain/student/Student';
 
 interface LanguageContextValue {
@@ -26,22 +28,16 @@ const LanguageContext = createContext<LanguageContextValue>({
 
 export function LanguageProvider({
   children,
-  initialLanguage = 'darija-ar',
   initialGender = 'male',
-  onLanguageChange,
 }: {
   children: React.ReactNode;
-  initialLanguage?: AppLanguage;
   initialGender?: StudentGender;
-  onLanguageChange?: (lang: AppLanguage) => void;
 }) {
-  const [language, setLangState] = useState<AppLanguage>(initialLanguage);
+  const language: AppLanguage = 'darija-ar';
   const [gender, setGenderState] = useState<StudentGender>(initialGender);
 
-  const setLanguage = useCallback((lang: AppLanguage) => {
-    setLangState(lang);
-    onLanguageChange?.(lang);
-  }, [onLanguageChange]);
+  // TODO (Google Play expansion): Replace this no-op with real language switching
+  const setLanguage = useCallback((_lang: AppLanguage) => {}, []);
 
   const setGender = useCallback((g: StudentGender) => {
     setGenderState(g);

@@ -116,7 +116,7 @@ export function SettingsScreen({ settings, onSettingChange, onSwitchProfile, stu
         <View style={styles.card}>
           <View style={styles.row}>
             <Text style={styles.rowLabel}>Version</Text>
-            <Text style={styles.rowValue}>1.1.0</Text>
+            <Text style={styles.rowValue}>1.2.0</Text>
           </View>
           <View style={[styles.row, styles.borderTop]}>
             <Text style={styles.rowLabel}>{S.settingsSchool}</Text>

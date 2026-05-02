@@ -42,64 +42,10 @@ const DARIJA_AR: GenderedStrings = {
   },
 };
 
-const FRENCH: GenderedStrings = {
-  result3: {
-    male:   'Excellent! Tu es une star! ⭐⭐⭐',
-    female: 'Excellente! Tu es une star! ⭐⭐⭐',
-  },
-  result2: {
-    male:   'Bien! Continue! ⭐⭐',
-    female: 'Bien! Continue! ⭐⭐',
-  },
-  result1: {
-    male:   'Pas mal, réessaie! 💪⭐',
-    female: 'Pas mal, réessaie! 💪⭐',
-  },
-  result0: {
-    male:   'Réessaie! Courage! 😊',
-    female: 'Réessaie! Courage! 😊',
-  },
-  welcomeBack: {
-    male:   'Bonjour! 👋',
-    female: 'Bonjour! 👋',
-  },
-  wellDone: {
-    male:   'Bravo! 🎉',
-    female: 'Bravo! 🎉',
-  },
-};
-
-const ENGLISH: GenderedStrings = {
-  result3: {
-    male:   'Excellent! You are a star! ⭐⭐⭐',
-    female: 'Excellent! You are a star! ⭐⭐⭐',
-  },
-  result2: {
-    male:   'Good job! Keep going! ⭐⭐',
-    female: 'Good job! Keep going! ⭐⭐',
-  },
-  result1: {
-    male:   'Almost there, try again! 💪⭐',
-    female: 'Almost there, try again! 💪⭐',
-  },
-  result0: {
-    male:   'Try again! You can do it! 😊',
-    female: 'Try again! You can do it! 😊',
-  },
-  welcomeBack: {
-    male:   'Hello! 👋',
-    female: 'Hello! 👋',
-  },
-  wellDone: {
-    male:   'Well done! 🎉',
-    female: 'Well done! 🎉',
-  },
-};
-
+// TODO (Google Play expansion): Add 'fr': FRENCH_GENDERED, 'en': ENGLISH_GENDERED here
+// and import from ./_future_langs/fr_gendered.ts and ./_future_langs/en_gendered.ts
 export const GENDERED_STRINGS: Record<AppLanguage, GenderedStrings> = {
-  'darija-ar':  DARIJA_AR,
-  'fr':         FRENCH,
-  'en':         ENGLISH,
+  'darija-ar': DARIJA_AR,
 };
 
 export function pickGendered(pair: GenderedPair, gender: StudentGender): string {

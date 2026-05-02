@@ -5,7 +5,6 @@ import {
 } from 'react-native';
 import { spacing, radius } from '../theme/spacing';
 import { AvatarPicker } from '../components/AvatarPicker';
-import { AppLanguage, LANGUAGE_OPTIONS, LANGUAGE_STRINGS } from '../../shared/constants/strings';
 import { useLanguage } from '../../shared/context/LanguageContext';
 import { useTheme, type ColorPalette } from '../../shared/context/ThemeContext';
 import { StudentGender } from '../../domain/student/Student';
@@ -14,15 +13,14 @@ const { width } = Dimensions.get('window');
 
 interface Props {
   onComplete: (name: string, avatar: string, gender: StudentGender) => Promise<void>;
-  onLanguageSelect: (lang: AppLanguage) => void;
 }
 
-export function OnboardingScreen({ onComplete, onLanguageSelect }: Props) {
-  const { S, language, setLanguage } = useLanguage();
+export function OnboardingScreen({ onComplete }: Props) {
+  const { S } = useLanguage();
   const { colors } = useTheme();
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
 
-  const [step, setStep] = useState<'language' | 0 | 1 | 2 | 'gender'>('language');
+  const [step, setStep] = useState<0 | 1 | 2 | 'gender'>(0);
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('🧑‍🎓');
   const [gender, setGender] = useState<StudentGender>('male');
@@ -34,7 +32,7 @@ export function OnboardingScreen({ onComplete, onLanguageSelect }: Props) {
   const btnScale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    if (typeof step !== 'number') return;
+    if (step === 'gender') return;
     fadeAnim.setValue(0);
     slideAnim.setValue(24);
     emojiScale.setValue(0.6);
@@ -50,16 +48,6 @@ export function OnboardingScreen({ onComplete, onLanguageSelect }: Props) {
     { emoji: '🎮', title: S.onboard2Title, desc: S.onboard2Desc },
     { emoji: '🚀', title: S.onboard3Title, desc: S.onboard3Desc },
   ];
-
-  const handleLanguagePick = (lang: AppLanguage) => {
-    setLanguage(lang);
-    onLanguageSelect(lang);
-    if (lang === 'en') {
-      Alert.alert('English Mode', LANGUAGE_STRINGS['en'].englishNote, [{ text: 'OK', onPress: () => setStep(0) }]);
-    } else {
-      setStep(0);
-    }
-  };
 
   const handleNext = () => {
     if (step === 0) setStep(1);
@@ -80,39 +68,11 @@ export function OnboardingScreen({ onComplete, onLanguageSelect }: Props) {
     setLoading(false);
   };
 
-  if (step === 'language') {
-    return (
-      <View style={styles.langContainer}>
-        <Text style={styles.langTitle}>🌍 {LANGUAGE_STRINGS['darija-ar'].langSelectTitle}</Text>
-        <Text style={styles.langSub}>Choose your language</Text>
-        <View style={styles.langGrid}>
-          {LANGUAGE_OPTIONS.map(opt => (
-            <TouchableOpacity
-              key={opt.id}
-              style={[styles.langCard, language === opt.id && styles.langCardActive]}
-              onPress={() => handleLanguagePick(opt.id)}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.langFlag}>{opt.flag}</Text>
-              <Text style={[styles.langName, language === opt.id && styles.langNameActive]}>
-                {opt.name}
-              </Text>
-              <Text style={styles.langSubText}>{opt.sub}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
-    );
-  }
-
   if (step === 'gender') {
-    const isAr = language === 'darija-ar';
-    const isFr = language === 'fr';
-
-    const title = isAr ? 'شكون نتا/نتي؟' : isFr ? 'Qui es-tu?' : 'Who are you?';
-    const maleLabel = isAr ? '👦 ولد' : isFr ? '👦 Garçon' : '👦 Boy';
-    const femaleLabel = isAr ? '👧 بنت' : isFr ? '👧 Fille' : '👧 Girl';
-    const confirmLabel = isAr ? 'بدا! 🚀' : isFr ? 'Commencer! 🚀' : 'Start! 🚀';
+    const title = 'شكون نتا/نتي؟';
+    const maleLabel = '👦 ولد';
+    const femaleLabel = '👧 بنت';
+    const confirmLabel = 'بدا! 🚀';
 
     return (
       <View style={styles.genderContainer}>
@@ -200,33 +160,12 @@ export function OnboardingScreen({ onComplete, onLanguageSelect }: Props) {
           </TouchableOpacity>
         </Animated.View>
 
-        <TouchableOpacity onPress={() => setStep('language')} style={styles.changeLangBtn}>
-          <Text style={styles.changeLangText}>🌍 {language === 'darija-ar' ? 'بدل اللغة' : language === 'fr' ? 'Changer langue' : 'Change language'}</Text>
-        </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
 
 const makeStyles = (c: ColorPalette) => StyleSheet.create({
-  langContainer: {
-    flex: 1, backgroundColor: c.splashBg, alignItems: 'center',
-    justifyContent: 'center', padding: spacing.xl, gap: spacing.xl,
-  },
-  langTitle: { fontSize: 26, fontWeight: '800', color: c.textPrimary, textAlign: 'center' },
-  langSub: { fontSize: 14, color: c.textSecondary, textAlign: 'center' },
-  langGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md, justifyContent: 'center', width: '100%' },
-  langCard: {
-    width: (width - spacing.xl * 2 - spacing.md) / 2,
-    backgroundColor: c.surface, borderRadius: radius.xl, padding: spacing.lg,
-    alignItems: 'center', gap: spacing.sm, borderWidth: 2, borderColor: c.border,
-    shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-  },
-  langCardActive: { borderColor: c.accent, backgroundColor: c.accent + '12' },
-  langFlag: { fontSize: 40 },
-  langName: { fontSize: 20, fontWeight: '800', color: c.textPrimary, textAlign: 'center' },
-  langNameActive: { color: c.accent },
-  langSubText: { fontSize: 11, color: c.textMuted, textAlign: 'center' },
   genderContainer: {
     flex: 1, backgroundColor: c.splashBg, alignItems: 'center',
     justifyContent: 'center', padding: spacing.xl, gap: spacing.xl,
@@ -266,6 +205,4 @@ const makeStyles = (c: ColorPalette) => StyleSheet.create({
   dotActive: { backgroundColor: c.accent, width: 24 },
   btn: { backgroundColor: c.accent, borderRadius: radius.pill, paddingVertical: spacing.lg, alignItems: 'center' },
   btnText: { color: '#FFFFFF', fontSize: 17, fontWeight: '700' },
-  changeLangBtn: { alignItems: 'center', paddingVertical: spacing.sm },
-  changeLangText: { fontSize: 13, color: c.textMuted },
 });

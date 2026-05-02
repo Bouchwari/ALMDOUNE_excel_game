@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { spacing, radius } from '../../theme/spacing';
-import { useLanguage } from '../../../shared/context/LanguageContext';
 import { useTheme, type ColorPalette } from '../../../shared/context/ThemeContext';
 
 const FR_TO_EN: Record<string, string> = {
@@ -21,16 +20,15 @@ interface Props {
   showToggle?: boolean;
 }
 
+// TODO (Google Play expansion): Restore language toggle when adding 'en' support
 export function FormulaDisplay({ formula, label, showToggle = false }: Props) {
-  const { language } = useLanguage();
   const { colors } = useTheme();
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
   const [overrideEn, setOverrideEn] = React.useState(false);
 
-  const isEn = language === 'en' || overrideEn;
-  const displayed = translateFormula(formula, isEn);
-  const langTag = isEn ? 'EN' : 'FR';
-  const langColor = isEn ? colors.accentBlue : colors.primary;
+  const displayed = translateFormula(formula, overrideEn);
+  const langTag = overrideEn ? 'EN' : 'FR';
+  const langColor = overrideEn ? colors.accentBlue : colors.primary;
 
   return (
     <View style={styles.wrapper}>
@@ -48,9 +46,9 @@ export function FormulaDisplay({ formula, label, showToggle = false }: Props) {
           </TouchableOpacity>
         )}
       </View>
-      {showToggle && language !== 'en' && (
+      {showToggle && (
         <Text style={styles.hint}>
-          {isEn ? 'Formule f English mode' : 'Toggling formula language →'}
+          {overrideEn ? 'English formula mode' : 'Tap FR/EN to toggle formula language →'}
         </Text>
       )}
     </View>
