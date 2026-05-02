@@ -195,7 +195,7 @@ const makeStyles = (c: ColorPalette) => StyleSheet.create({
   container: { flex: 1, backgroundColor: c.background },
   header: {
     backgroundColor: c.accent, flexDirection: 'row', alignItems: 'center',
-    paddingTop: spacing.xl + spacing.lg, paddingHorizontal: spacing.lg, paddingBottom: spacing.md, gap: spacing.sm,
+    paddingTop: spacing.md, paddingHorizontal: spacing.lg, paddingBottom: spacing.md, gap: spacing.sm,
   },
   backBtn: { padding: spacing.xs },
   backText: { fontSize: 18, color: '#FFFFFF', fontWeight: '700' },

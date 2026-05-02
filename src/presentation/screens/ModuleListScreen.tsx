@@ -8,6 +8,7 @@ import { Lesson } from '../../domain/curriculum/Lesson';
 import { LessonResult } from '../../domain/progress/LessonResult';
 import { useLanguage } from '../../shared/context/LanguageContext';
 import { useTheme, type ColorPalette } from '../../shared/context/ThemeContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props {
   modules: ModuleWithProgress[];
@@ -67,6 +68,7 @@ export function ModuleListScreen({
 }: Props) {
   const { S, language } = useLanguage();
   const { colors } = useTheme();
+  const { top } = useSafeAreaInsets();
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
   const [query, setQuery] = useState('');
 
@@ -90,7 +92,7 @@ export function ModuleListScreen({
     };
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingTop: top }]}>
         <View style={styles.subHeader}>
           <TouchableOpacity onPress={onBack} style={styles.backBtn}>
             <Text style={styles.backText}>{S.back}</Text>
@@ -161,7 +163,7 @@ export function ModuleListScreen({
 
   return (
     <FlatList
-      style={styles.container}
+      style={[styles.container, { paddingTop: top }]}
       data={filtered}
       renderItem={renderModule}
       keyExtractor={keyExtractor}

@@ -5,6 +5,7 @@ import {
 import { spacing, radius, shadow } from '../theme/spacing';
 import { useLanguage } from '../../shared/context/LanguageContext';
 import { useTheme, type ColorPalette } from '../../shared/context/ThemeContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StudentProgress } from '../../domain/student/StudentProgress';
 
 interface GameCard {
@@ -31,6 +32,7 @@ interface Props {
 export function GamesScreen({ progress, onPlayGame, onDailyChallenge, onQuickQuiz, onClassChallenge, isChallengeAvailable }: Props) {
   const { S } = useLanguage();
   const { colors } = useTheme();
+  const { top } = useSafeAreaInsets();
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
 
   const gameColors: Record<GameCard['key'], string> = {
@@ -50,7 +52,7 @@ export function GamesScreen({ progress, onPlayGame, onDailyChallenge, onQuickQui
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: top }]}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>{S.tabGames}</Text>
         <View style={styles.xpBadge}>

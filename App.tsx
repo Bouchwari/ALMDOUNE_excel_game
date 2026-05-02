@@ -8,7 +8,7 @@ ExpoSplashScreen.preventAutoHideAsync().catch(() => {});
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { SplashScreen } from './src/presentation/screens/SplashScreen';
 import { OnboardingScreen } from './src/presentation/screens/OnboardingScreen';
@@ -108,6 +108,23 @@ const DEFAULT_SETTINGS: AppSettings = {
 const TAB_ICONS: Record<string, string> = {
   Home: '🏠', Modules: '📚', Leaderboard: '🏆', Games: '🎮', Simulator: '🖥️',
 };
+
+function ScreenWrap({ bg, barStyle, children }: {
+  bg: string;
+  barStyle?: 'dark-content' | 'light-content';
+  children: React.ReactNode;
+}) {
+  const { top } = useSafeAreaInsets();
+  const { isDark } = useTheme();
+  return (
+    <>
+      <StatusBar barStyle={barStyle ?? (isDark ? 'light-content' : 'dark-content')} backgroundColor={bg} />
+      <View style={{ flex: 1, paddingTop: top, backgroundColor: bg }}>
+        {children}
+      </View>
+    </>
+  );
+}
 
 function AppInner() {
   const { S, setGender } = useLanguage();
@@ -401,12 +418,9 @@ function AppInner() {
   }), [colors]);
 
   const wrap = (statusBg: string, child: React.ReactNode, barStyle?: 'dark-content' | 'light-content') => (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <StatusBar barStyle={barStyle ?? defaultBarStyle} backgroundColor={statusBg} />
-        {child}
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <ScreenWrap bg={statusBg} barStyle={barStyle}>
+      {child}
+    </ScreenWrap>
   );
 
   if (screen === 'splash' || loading)
@@ -482,10 +496,9 @@ function AppInner() {
   const modLessons = selectedModuleId ? getLessonUC.getLessonsForModule(selectedModuleId) : [];
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaProvider>
-        <StatusBar barStyle={defaultBarStyle} backgroundColor={colors.surface} />
-        <NavigationContainer>
+    <>
+      <StatusBar barStyle={defaultBarStyle} backgroundColor={colors.surface} />
+      <NavigationContainer>
           <Tab.Navigator
             screenOptions={({ route }) => ({
               headerShown: false,
@@ -563,18 +576,21 @@ function AppInner() {
             </Tab.Screen>
           </Tab.Navigator>
         </NavigationContainer>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    </>
   );
 }
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <AppInner />
-      </LanguageProvider>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <AppInner />
+          </LanguageProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 

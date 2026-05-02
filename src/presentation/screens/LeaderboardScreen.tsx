@@ -6,6 +6,7 @@ import { LeaderboardEntry } from '../../application/progress/GetLeaderboardUseCa
 import { spacing, radius, shadow } from '../theme/spacing';
 import { useLanguage } from '../../shared/context/LanguageContext';
 import { useTheme, type ColorPalette } from '../../shared/context/ThemeContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props {
   entries: LeaderboardEntry[];
@@ -27,6 +28,7 @@ const PODIUM_OFFSET = [20, 0, 36];
 export function LeaderboardScreen({ entries, currentStudentId, onRefresh }: Props) {
   const { S } = useLanguage();
   const { colors } = useTheme();
+  const { top } = useSafeAreaInsets();
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -88,7 +90,7 @@ export function LeaderboardScreen({ entries, currentStudentId, onRefresh }: Prop
 
   return (
     <FlatList
-      style={styles.container}
+      style={[styles.container, { paddingTop: top }]}
       contentContainerStyle={styles.content}
       data={rest}
       keyExtractor={item => item.studentId}

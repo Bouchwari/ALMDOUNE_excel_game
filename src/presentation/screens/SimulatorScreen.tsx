@@ -5,6 +5,7 @@ import {
 import { spacing, radius } from '../theme/spacing';
 import { useLanguage } from '../../shared/context/LanguageContext';
 import { useTheme } from '../../shared/context/ThemeContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ROWS = 20;
 const COLS = 8;
@@ -190,6 +191,7 @@ function evaluateFormula(formula: string, grid: Grid, lang: string): string {
 export function SimulatorScreen() {
   const { S } = useLanguage();
   const { colors } = useTheme();
+  const { top } = useSafeAreaInsets();
   const [grid, setGrid] = useState<Grid>(createEmptyGrid());
   const [displayGrid, setDisplayGrid] = useState<Grid>(createEmptyGrid());
   const [selected, setSelected] = useState<{ r: number; c: number } | null>(null);
@@ -252,7 +254,7 @@ export function SimulatorScreen() {
   ];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { paddingTop: top }]}>
       {/* Title bar */}
       <View style={styles.titleBar}>
         <Text style={styles.titleText}>{S.simulatorTitle}</Text>

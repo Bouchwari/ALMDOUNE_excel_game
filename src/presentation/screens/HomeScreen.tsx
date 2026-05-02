@@ -11,6 +11,7 @@ import { SkeletonModuleCard } from '../components/SkeletonCard';
 import { LEVELS, BADGES } from '../../shared/constants/gamification';
 import { useLanguage } from '../../shared/context/LanguageContext';
 import { useTheme, type ColorPalette } from '../../shared/context/ThemeContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props {
   student: Student;
@@ -64,6 +65,7 @@ export function HomeScreen({
 }: Props) {
   const { S } = useLanguage();
   const { colors } = useTheme();
+  const { top } = useSafeAreaInsets();
   const sc = React.useMemo(() => makeStyles(colors), [colors]);
 
   const xp = progress?.xp ?? 0;
@@ -228,7 +230,7 @@ export function HomeScreen({
 
   return (
     <FlatList
-      style={sc.container}
+      style={[sc.container, { paddingTop: top }]}
       data={modules}
       renderItem={renderModule}
       keyExtractor={item => item.id}
