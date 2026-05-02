@@ -52,7 +52,7 @@ export function FriendChallengeScreen({ onCreate, onScan, onBack }: Props) {
           <Text style={styles.createBtnIcon}>🎯</Text>
           <View style={styles.btnInfo}>
             <Text style={styles.createBtnTitle}>{S.friendCreate}</Text>
-            <Text style={styles.createBtnSub}>L3ab w sifet QR l sa7bek</Text>
+            <Text style={styles.createBtnSub}>{S.friendCreateSub}</Text>
           </View>
           <Text style={styles.chevron}>→</Text>
         </TouchableOpacity>
@@ -61,7 +61,7 @@ export function FriendChallengeScreen({ onCreate, onScan, onBack }: Props) {
           <Text style={styles.createBtnIcon}>📷</Text>
           <View style={styles.btnInfo}>
             <Text style={styles.scanBtnTitle}>{S.friendScan}</Text>
-            <Text style={styles.scanBtnSub}>Scanner QR dyal sa7bek w l3ab</Text>
+            <Text style={styles.scanBtnSub}>{S.friendScanSub}</Text>
           </View>
           <Text style={[styles.chevron, { color: colors.accent }]}>→</Text>
         </TouchableOpacity>

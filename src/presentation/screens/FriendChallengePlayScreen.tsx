@@ -213,7 +213,7 @@ export function FriendChallengePlayScreen({ exercises, role, hostName, onComplet
           <View style={styles.fillContainer}>
             <TextInput
               style={[styles.fillInput, answerState === 'correct' && styles.fillCorrect, answerState === 'wrong' && styles.fillWrong]}
-              placeholder={exercise.placeholder ?? 'Kteb jawabek...'}
+              placeholder={exercise.placeholder ?? S.fillBlankPlaceholder}
               placeholderTextColor={colors.textMuted}
               value={fillText} onChangeText={setFillText}
               editable={answerState === 'idle'} autoCapitalize="characters" autoCorrect={false}

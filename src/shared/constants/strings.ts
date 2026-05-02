@@ -102,6 +102,9 @@ export interface AppStrings {
   gameStreakLabel: string;
   gameXpBonus: string;
   gameNext: string;
+  gameCellNameQuestion: string;
+  gameFixFormula: string;
+  friendArrowHint: string;
 
   // Home screen
   continueLabel: string;
@@ -173,7 +176,9 @@ export interface AppStrings {
   // Friend Challenge (multiplayer)
   friendChallengeTitle: string;
   friendCreate: string;
+  friendCreateSub: string;
   friendScan: string;
+  friendScanSub: string;
   friendHowTitle: string;
   friendStep1: string;
   friendStep2: string;
@@ -286,6 +291,9 @@ const DARIJA_AR: AppStrings = {
   gameStreakLabel: 'Streak 🔥',
   gameXpBonus: 'XP بونوس!',
   gameNext: 'جي →',
+  gameCellNameQuestion: 'شنو اسم هاد الخلية؟ 🟩',
+  gameFixFormula: '🔧 صلح هاد الـ formule:',
+  friendArrowHint: '⬇ ورّي هاد QR لصاحبك ⬇',
   continueLabel: 'كمل من وين وقفتي →',
   modulesSubtitle: 'ابدا من الأول أو كمل من وين وقفتي!',
   miniGamesTitle: '🎮 ألعاب تمزانت',
@@ -333,7 +341,9 @@ const DARIJA_AR: AppStrings = {
   classChallengeDone: '✓ ارجع',
   friendChallengeTitle: '🤝 تحدي مع صاحبك',
   friendCreate: '🎯 اصنع تحدي',
+  friendCreateSub: 'العب وارسل QR لصاحبك',
   friendScan: '📷 سكان التحدي',
+  friendScanSub: 'سكان QR ديال صاحبك والعب',
   friendHowTitle: 'كيفاش كيخدم؟',
   friendStep1: '① لعب السؤالات – كسب سكورك',
   friendStep2: '② ورّي QR code لصاحبك',
@@ -444,6 +454,9 @@ const FRENCH: AppStrings = {
   gameStreakLabel: 'Série 🔥',
   gameXpBonus: 'XP bonus!',
   gameNext: 'Suivant →',
+  gameCellNameQuestion: 'Comment s\'appelle cette cellule? 🟩',
+  gameFixFormula: '🔧 Corrige cette formule:',
+  friendArrowHint: '⬇ Montre ce QR à ton ami ⬇',
   continueLabel: 'Continuer →',
   modulesSubtitle: 'Recommence ou continue là où tu t\'es arrêté!',
   miniGamesTitle: '🎮 Mini Jeux',
@@ -491,7 +504,9 @@ const FRENCH: AppStrings = {
   classChallengeDone: '✓ Retour',
   friendChallengeTitle: '🤝 Défi Ami',
   friendCreate: '🎯 Créer un Défi',
+  friendCreateSub: 'Joue et envoie le QR à ton ami',
   friendScan: '📷 Scanner un Défi',
+  friendScanSub: 'Scanne le QR de ton ami et joue',
   friendHowTitle: 'Comment ça marche?',
   friendStep1: '① Joue les questions – obtiens ton score',
   friendStep2: '② Montre le QR à ton ami',
@@ -602,6 +617,9 @@ const ENGLISH: AppStrings = {
   gameStreakLabel: 'Streak 🔥',
   gameXpBonus: 'XP bonus!',
   gameNext: 'Next →',
+  gameCellNameQuestion: 'What is this cell called? 🟩',
+  gameFixFormula: '🔧 Fix this formula:',
+  friendArrowHint: '⬇ Show this QR to your friend ⬇',
   continueLabel: 'Continue →',
   modulesSubtitle: 'Start from the beginning or continue where you left off!',
   miniGamesTitle: '🎮 Mini Games',
@@ -649,7 +667,9 @@ const ENGLISH: AppStrings = {
   classChallengeDone: '✓ Done',
   friendChallengeTitle: '🤝 Friend Challenge',
   friendCreate: '🎯 Create Challenge',
+  friendCreateSub: 'Play and send the QR to your friend',
   friendScan: '📷 Scan Challenge',
+  friendScanSub: 'Scan your friend\'s QR and play',
   friendHowTitle: 'How it works?',
   friendStep1: '① Play questions – get your score',
   friendStep2: '② Show the QR code to your friend',

@@ -22,14 +22,14 @@ interface Question {
 }
 
 const QUESTIONS: Question[] = [
-  { broken: '=___(A1:A10)', full: '=SOMME(A1:A10)', hint: 'Fonction bach tjm3 koll arqam f range.', options: ['SOMME', 'MOYENNE', 'MAX', 'NB'], correctIndex: 0, explanation: 'SOMME katjm3 koll arqam mn A1 l A10.' },
-  { broken: '=SOMME(___:B5)', full: '=SOMME(B1:B5)', hint: 'L-range kaybda mn awwel cellule f 3amud B.', options: ['B1', 'A1', 'B0', 'C1'], correctIndex: 0, explanation: 'Range dial SOMME: men B1 l B5.' },
-  { broken: '=___(A1:A10)', full: '=MOYENNE(A1:A10)', hint: 'Fonction bach t7seb moyenne (average).', options: ['MOYENNE', 'SOMME', 'MIN', 'MAX'], correctIndex: 0, explanation: 'MOYENNE = (sum ÷ count) – average dyal l-range.' },
-  { broken: '=SI(A1>10,___, "Non")', full: '=SI(A1>10,"Oui","Non")', hint: 'Ida condition sh7i7a, 3t valeur première.', options: ['"Oui"', '"Non"', '10', 'A1'], correctIndex: 0, explanation: 'SI(condition, valeur_si_vrai, valeur_si_faux)' },
-  { broken: '=MAX(___)', full: '=MAX(A1:A5)', hint: 'Range dial koll valeurs f 3amud A men saff 1 l 5.', options: ['A1:A5', 'A:A', 'A1+A5', '1:5'], correctIndex: 0, explanation: 'MAX(A1:A5) katred 3t9al raqm men A1 l A5.' },
-  { broken: '=NB(___)', full: '=NB(A1:A20)', hint: 'NB (COUNT) kat3dd cellulat li fiha arqam f range.', options: ['A1:A20', 'A1,A20', '"A1:A20"', 'A1-A20'], correctIndex: 0, explanation: 'NB(A1:A20) kat3dd 3dad cellulat numeriques.' },
-  { broken: '=SI(B1<___, "Échoué", "Reçu")', full: '=SI(B1<10,"Échoué","Reçu")', hint: 'Note d3if = men 10 – condition dla7i7a.', options: ['10', '0', '20', '100'], correctIndex: 0, explanation: 'Ida note < 10 → "Échoué", mala → "Reçu".' },
-  { broken: '=SOMME(A1:A5)+___', full: '=SOMME(A1:A5)+SOMME(B1:B5)', hint: 'Fonction li katjm3 koll arqam f 3amud B.', options: ['SOMME(B1:B5)', 'B1:B5', 'MOYENNE(B1:B5)', 'MAX(B1:B5)'], correctIndex: 0, explanation: 'Tjm3 SOMME A w SOMME B bach t7ssol 3la total.' },
+  { broken: '=___(A1:A10)', full: '=SOMME(A1:A10)', hint: 'fonction باش تجمع كل أرقام ف range.', options: ['SOMME', 'MOYENNE', 'MAX', 'NB'], correctIndex: 0, explanation: 'SOMME كتجمع كل أرقام من A1 حتى A10.' },
+  { broken: '=SOMME(___:B5)', full: '=SOMME(B1:B5)', hint: 'range كيبدا من أول cellule ف عمود B.', options: ['B1', 'A1', 'B0', 'C1'], correctIndex: 0, explanation: 'range ديال SOMME: من B1 حتى B5.' },
+  { broken: '=___(A1:A10)', full: '=MOYENNE(A1:A10)', hint: 'fonction باش تحسب متوسط (average).', options: ['MOYENNE', 'SOMME', 'MIN', 'MAX'], correctIndex: 0, explanation: 'MOYENNE = مجموع ÷ عدد – average ديال range.' },
+  { broken: '=SI(A1>10,___, "Non")', full: '=SI(A1>10,"Oui","Non")', hint: 'إيلا condition صحيحة، عطي valeur الأولى.', options: ['"Oui"', '"Non"', '10', 'A1'], correctIndex: 0, explanation: 'SI(condition, valeur_si_vrai, valeur_si_faux)' },
+  { broken: '=MAX(___)', full: '=MAX(A1:A5)', hint: 'range ديال كل valeurs ف عمود A من صف 1 حتى 5.', options: ['A1:A5', 'A:A', 'A1+A5', '1:5'], correctIndex: 0, explanation: 'MAX(A1:A5) كتعطي أكبر رقم من A1 حتى A5.' },
+  { broken: '=NB(___)', full: '=NB(A1:A20)', hint: 'NB (COUNT) كتعد cellules اللي فيها أرقام ف range.', options: ['A1:A20', 'A1,A20', '"A1:A20"', 'A1-A20'], correctIndex: 0, explanation: 'NB(A1:A20) كتعد عدد cellules رقمية.' },
+  { broken: '=SI(B1<___, "Échoué", "Reçu")', full: '=SI(B1<10,"Échoué","Reçu")', hint: 'note ضعيفة = أقل من 10 – هدا هو الشرط.', options: ['10', '0', '20', '100'], correctIndex: 0, explanation: 'إيلا note < 10 → "Échoué"، وإلا → "Reçu".' },
+  { broken: '=SOMME(A1:A5)+___', full: '=SOMME(A1:A5)+SOMME(B1:B5)', hint: 'fonction اللي كتجمع كل أرقام ف عمود B.', options: ['SOMME(B1:B5)', 'B1:B5', 'MOYENNE(B1:B5)', 'MAX(B1:B5)'], correctIndex: 0, explanation: 'جمع SOMME A و SOMME B باش تجيب total.' },
 ];
 
 function shuffle<T>(arr: T[]): T[] {
@@ -112,8 +112,7 @@ export function FormulaFixerGame({ onComplete, onBack }: Props) {
           </View>
 
           <View style={styles.questionCard}>
-            <Text style={styles.questionLabel}>🔧 Sali7 had la formule:</Text>
-            <Text style={styles.questionLabel2}>(Fix this formula)</Text>
+            <Text style={styles.questionLabel}>{S.gameFixFormula}</Text>
             <View style={styles.brokenFormula}>
               <Text style={styles.brokenText}>{current.broken}</Text>
             </View>

@@ -61,7 +61,6 @@ export const MODULE_5: Module = {
           type: 'fill_blank',
           question: 'باش تدير graphique: Tab ___ ← Graphiques',
           correctAnswer: 'INSERTION',
-          placeholder: 'Kteb isem tab...',
           hint: 'نفس tab لـ insérer images و tableaux',
         },
       ],

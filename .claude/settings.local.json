@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh pr *)",
+      "Bash(npx expo *)",
+      "Bash(node_modules/.bin/expo install *)",
+      "Bash(powershell -command \"\\(Get-Content 'c:\\\\Users\\\\abdo\\\\Documents\\\\ALMDOUNE_excel_game-main\\\\src\\\\infrastructure\\\\data\\\\curriculumData.ts'\\).Count\")",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git -c user.email=avatamoujot@gmail.com -c user.name=Bouchwari commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git -c user.email=\"avatamoujot@gmail.com\" -c user.name=\"Bouchwari\" commit -m \"docs: update PROJECT_GUIDE to v1.2.0 with full feature reference\")",
+      "Bash(git -c user.email=\"avatamoujot@gmail.com\" -c user.name=\"Bouchwari\" commit -m \"ci: fix APK build — write local.properties after prebuild, use glob upload path, opt into Node 24\")",
+      "Bash(git -c user.email=\"avatamoujot@gmail.com\" -c user.name=\"Bouchwari\" commit -m \"fix: crash on home screen — remove opacity animation from locked ModuleCard, revert Animated.Text to Text\")",
+      "Bash(git -c user.email=\"avatamoujot@gmail.com\" -c user.name=\"Bouchwari\" commit -m \"perf: remove unnecessary Animated.parallel wrapper in ModuleCard\")",
+      "Bash(python3 -c \"import json,sys; p=json.load\\(sys.stdin\\); deps={**p.get\\('dependencies',{}\\), **p.get\\('devDependencies',{}\\)}; [print\\(k,v\\) for k,v in sorted\\(deps.items\\(\\)\\)]\")",
+      "Bash(npm uninstall *)",
+      "Bash(git -c user.email=\"avatamoujot@gmail.com\" -c user.name=\"Bouchwari\" commit -m \"perf: remove unused deps — reanimated, worklets, animatable, nav/stack, jimp, svg-transformer \\(~20-30MB APK reduction\\)\")",
+      "Bash(git -c user.email=\"avatamoujot@gmail.com\" -c user.name=\"Bouchwari\" commit -m \"fix: resolve crash-on-launch — move tabBarStyle useMemo above early returns, fix ThemeContext unhandled promises, guard FriendChallengePlay double-complete\")",
+      "Bash(git -c user.email=\"avatamoujot@gmail.com\" -c user.name=\"Bouchwari\" commit -m \"feat: leaderboard now shows only real students — proper podium heights, pull-to-refresh, you-are-here tag, single-student nudge\")",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\abdo\\\\Documents\\\\ALMDOUNE_excel_game-main\" -Recurse -Filter \"*Exercise*\" -File)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "PowerShell(cd \"c:\\\\Users\\\\abdo\\\\Documents\\\\ALMDOUNE_excel_game-main\"; \\(Get-Content src/infrastructure/data/curriculumData.ts\\).Count)",
+      "Bash(npx tsc *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}

@@ -68,7 +68,6 @@ export const MODULE_8: Module = {
           type: 'fill_blank',
           question: 'الـ fonction باش تعد cellules فارغات:\n=___(A1:A10)',
           correctAnswer: 'NB.VIDE',
-          placeholder: 'Kteb isem fonction...',
           hint: 'Vide = فارغ',
         },
         {

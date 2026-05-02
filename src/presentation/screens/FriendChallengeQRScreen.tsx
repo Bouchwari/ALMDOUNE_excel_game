@@ -62,7 +62,7 @@ export function FriendChallengeQRScreen({ payload, onDone }: Props) {
         </View>
 
         <View style={styles.arrowHint}>
-          <Text style={styles.arrowHintText}>⬇ Wri had QR l sa7bek ⬇</Text>
+          <Text style={styles.arrowHintText}>{S.friendArrowHint}</Text>
         </View>
       </ScrollView>
 

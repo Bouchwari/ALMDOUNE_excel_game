@@ -181,7 +181,6 @@ export const MODULE_7: Module = {
           type: 'fill_blank',
           question: 'Tab اللي فيه "Zone d\'impression":\nTab ___ en page',
           correctAnswer: 'MISE',
-          placeholder: 'Kteb...',
           hint: 'Mise en page = Page Layout',
         },
       ],

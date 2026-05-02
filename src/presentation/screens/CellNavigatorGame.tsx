@@ -130,8 +130,7 @@ export function CellNavigatorGame({ onComplete, onBack }: Props) {
         <View style={styles.instructionBox}>
           {mode === 'name-it' ? (
             <>
-              <Text style={styles.instrText}>Chno smiytha had la cellule? 🟩</Text>
-              <Text style={styles.instrSub}>(What is this cell called?)</Text>
+              <Text style={styles.instrText}>{S.gameCellNameQuestion}</Text>
             </>
           ) : (
             <>
