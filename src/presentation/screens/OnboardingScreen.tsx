@@ -96,7 +96,7 @@ export function OnboardingScreen({ onComplete }: Props) {
           </TouchableOpacity>
         </View>
         <TouchableOpacity
-          style={[styles.btn, loading && { opacity: 0.6 }]}
+          style={[styles.btn, styles.btnFullWidth, loading && { opacity: 0.6 }]}
           onPress={handleGenderConfirm}
           disabled={loading}
           activeOpacity={0.8}
@@ -204,5 +204,6 @@ const makeStyles = (c: ColorPalette) => StyleSheet.create({
   dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: c.border },
   dotActive: { backgroundColor: c.accent, width: 24 },
   btn: { backgroundColor: c.accent, borderRadius: radius.pill, paddingVertical: spacing.lg, alignItems: 'center' },
+  btnFullWidth: { alignSelf: 'stretch' },
   btnText: { color: '#FFFFFF', fontSize: 17, fontWeight: '700' },
 });
