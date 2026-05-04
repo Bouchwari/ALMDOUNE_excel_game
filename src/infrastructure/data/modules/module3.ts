@@ -1,4 +1,4 @@
-﻿import { Module } from '../../../domain/curriculum/Module';
+import { Module } from '../../../domain/curriculum/Module';
 import { colors } from '../../../presentation/theme/colors';
 
 export const MODULE_3: Module = {
@@ -46,6 +46,7 @@ export const MODULE_3: Module = {
           question: 'كل formule ف Excel كاتبدا بـ:',
           options: ['+', '#', '=', '@'],
           correctIndex: 2,
+          hint: 'يلا ما درتيش هاد signe، Excel ما يفهمش formule',
         },
         {
           id: 'mod3-les1-ex2',
@@ -53,6 +54,7 @@ export const MODULE_3: Module = {
           question: 'كتب formule د addition د A1 و B1:',
           correctAnswer: '=A1+B1',
           placeholder: '=...',
+          hint: 'formule تبدا بـ = من بعد référence + عملية',
         },
         {
           id: 'mod3-les1-ex3',
@@ -60,12 +62,14 @@ export const MODULE_3: Module = {
           question: 'Signe د multiplication ف formules Excel:',
           options: ['x', '×', '*', '•'],
           correctIndex: 2,
+          hint: 'مو × ولا x – شي حاجة خرى على clavier',
         },
         {
           id: 'mod3-les1-ex4',
           type: 'true_false',
           question: 'يلا ما درتيش = ف بداية، formule كتخدم مزيان.',
           correctIndex: 1,
+          hint: 'Excel كيشوف = باش يفهم أن هادي formule',
         },
         {
           id: 'mod3-les1-ex5',
@@ -73,6 +77,7 @@ export const MODULE_3: Module = {
           question: '=10/2 ف Excel كايدير:',
           options: ['20', '12', '5', '8'],
           correctIndex: 2,
+          hint: '/ = قسمة (division)',
         },
       ],
     },
@@ -104,6 +109,7 @@ export const MODULE_3: Module = {
           question: 'كتب formule باش تجمع كاع cellules من B1 حتى B5:',
           correctAnswer: '=SOMME(B1:B5)',
           placeholder: '=SOMME(...)',
+          hint: 'SOMME مع plage – من B1 حتى B5',
         },
         {
           id: 'mod3-les2-ex2',
@@ -111,6 +117,7 @@ export const MODULE_3: Module = {
           question: '=SOMME(A1:A4) يلا A1=5، A2=10، A3=15، A4=20 → النتيجة:',
           options: ['30', '40', '50', '45'],
           correctIndex: 2,
+          hint: '5+10+15+20 = ؟',
         },
         {
           id: 'mod3-les2-ex3',
@@ -118,12 +125,14 @@ export const MODULE_3: Module = {
           question: 'رتب formule د SOMME من A1 حتى A10:',
           parts: ['A10)', 'SOMME(', '=', 'A1:'],
           correctOrder: [2, 1, 3, 0],
+          hint: 'ديما: = → اسم formule → ( → plage → )',
         },
         {
           id: 'mod3-les2-ex4',
           type: 'true_false',
           question: '":" ف plage Excel كتعني "حتى" (de A1 jusqu\'à A10).',
           correctIndex: 0,
+          hint: 'A1:A10 = من A1 حتى A10',
         },
         {
           id: 'mod3-les2-ex5',
@@ -131,6 +140,7 @@ export const MODULE_3: Module = {
           question: 'SOMME د 3 cellules مختلفة A1، C1، E1:',
           correctAnswer: '=SOMME(A1,C1,E1)',
           placeholder: '=SOMME(...)',
+          hint: 'كل cellule مفصولة بـ , بدل :',
         },
       ],
     },
@@ -156,6 +166,7 @@ export const MODULE_3: Module = {
           question: 'Formule د moyenne د notes من C2 حتى C15:',
           correctAnswer: '=MOYENNE(C2:C15)',
           placeholder: '=MOYENNE(...)',
+          hint: 'مثل SOMME – غير بدل SOMME دير MOYENNE',
         },
         {
           id: 'mod3-les3-ex2',
@@ -163,12 +174,14 @@ export const MODULE_3: Module = {
           question: '=MOYENNE(A1:A3) يلا A1=10، A2=20، A3=30 → النتيجة:',
           options: ['60', '20', '30', '15'],
           correctIndex: 1,
+          hint: '(10+20+30) ÷ 3 = ؟',
         },
         {
           id: 'mod3-les3-ex3',
           type: 'true_false',
           question: 'MOYENNE = SOMME ÷ عدد د valeurs.',
           correctIndex: 0,
+          hint: 'الوسط = المجموع ÷ عدد الأرقام',
         },
         {
           id: 'mod3-les3-ex4',
@@ -176,6 +189,7 @@ export const MODULE_3: Module = {
           question: 'Notes: 12، 14، 16، 18. MOYENNE = ؟',
           options: ['14', '15', '16', '60'],
           correctIndex: 1,
+          hint: '(12+14+16+18) ÷ 4 = ؟',
         },
       ],
     },
@@ -201,6 +215,7 @@ export const MODULE_3: Module = {
           question: 'Formule باش تلقى النقطة الأكبر من B2 حتى B25:',
           correctAnswer: '=MAX(B2:B25)',
           placeholder: '=MAX(...)',
+          hint: 'MAX مع plage – كيعطيك الأكبر',
         },
         {
           id: 'mod3-les4-ex2',
@@ -208,6 +223,7 @@ export const MODULE_3: Module = {
           question: '=MIN(5,12,3,18,7) → النتيجة:',
           options: ['18', '5', '3', '7'],
           correctIndex: 2,
+          hint: 'MIN = Minimum = الأقل – شنو أصغر رقم؟',
         },
         {
           id: 'mod3-les4-ex3',
@@ -215,12 +231,14 @@ export const MODULE_3: Module = {
           question: '=MAX(A1:A5) يلا A1=8,A2=15,A3=20,A4=12,A5=18:',
           options: ['8', '15', '18', '20'],
           correctIndex: 3,
+          hint: 'MAX كيعطيك الأكبر – شنو أكبر رقم فالقائمة؟',
         },
         {
           id: 'mod3-les4-ex4',
           type: 'true_false',
           question: 'MIN كيعطيك الرقم الأكبر ف plage.',
           correctIndex: 1,
+          hint: 'MIN = Minimum = الأقل مو الأكبر',
         },
       ],
     },
@@ -252,6 +270,7 @@ export const MODULE_3: Module = {
           question: 'ف plage: 15, "Ali", 18, 20, "" (خاوية). NB() = ؟',
           options: ['5', '4', '3', '2'],
           correctIndex: 2,
+          hint: 'NB كيحسب أرقام غير – ما كيحسبش texte و خاوي',
         },
         {
           id: 'mod3-les5-ex2',
@@ -259,12 +278,14 @@ export const MODULE_3: Module = {
           question: 'ف plage: 15, "Ali", 18, 20, "" (خاوية). NBVAL() = ؟',
           options: ['5', '4', '3', '2'],
           correctIndex: 1,
+          hint: 'NBVAL كيحسب كاع لي عامر – ما كيحسبش خاوي',
         },
         {
           id: 'mod3-les5-ex3',
           type: 'true_false',
           question: 'NB كيحسب texte و أرقام على حد.',
           correctIndex: 1,
+          hint: 'NB = Nombre – texte مو رقم',
         },
         {
           id: 'mod3-les5-ex4',
@@ -272,6 +293,7 @@ export const MODULE_3: Module = {
           question: 'Formule باش تعرف شحال طالب عندهم note ف B2:B30:',
           correctAnswer: '=NB(B2:B30)',
           placeholder: '=NB(...)',
+          hint: 'Notes هي أرقام – NB يحسبهم',
         },
       ],
     },
@@ -303,6 +325,7 @@ export const MODULE_3: Module = {
           question: 'رتب formule SI: يلا A1>10 → "Bien" sinon "Insuffisant":',
           parts: ['"Insuffisant")', '"Bien",', '=SI(A1>10,', ''],
           correctOrder: [2, 1, 3, 0],
+          hint: '= SI( condition , valeur_vrai , valeur_faux )',
         },
         {
           id: 'mod3-les6-ex2',
@@ -310,6 +333,7 @@ export const MODULE_3: Module = {
           question: '=SI(15>=10,"Reçu","Échoué") → النتيجة:',
           options: ['Échoué', 'Reçu', '15', 'Erreur'],
           correctIndex: 1,
+          hint: '15 >= 10 → صحيح أولا غلط؟',
         },
         {
           id: 'mod3-les6-ex3',
@@ -317,6 +341,7 @@ export const MODULE_3: Module = {
           question: '=SI(5>=10,"Reçu","Échoué") → النتيجة:',
           options: ['Reçu', '5', 'Échoué', 'Vrai'],
           correctIndex: 2,
+          hint: '5 >= 10 → صحيح أولا غلط؟',
         },
         {
           id: 'mod3-les6-ex4',
@@ -324,12 +349,14 @@ export const MODULE_3: Module = {
           question: 'Formule SI: يلا A1>0 → "Positif" sinon "Négatif":',
           correctAnswer: '=SI(A1>0,"Positif","Négatif")',
           placeholder: '=SI(...)',
+          hint: 'SI( condition، "Positif"، "Négatif" ) – condition هي A1>0',
         },
         {
           id: 'mod3-les6-ex5',
           type: 'true_false',
           question: 'SI ف Excel عندها 3 parties: condition، valeur si vrai، valeur si faux.',
           correctIndex: 0,
+          hint: 'Condition | يلا صحيح → ... | يلا غلط → ...',
         },
       ],
     },
@@ -355,6 +382,7 @@ export const MODULE_3: Module = {
           question: 'رتب formule د SOMME د B1 حتى B8:',
           parts: ['B8)', 'SOMME(', '=', 'B1:'],
           correctOrder: [2, 1, 3, 0],
+          hint: 'ديما: = SOMME( plage )',
         },
         {
           id: 'mod3-les7-ex2',
@@ -362,6 +390,7 @@ export const MODULE_3: Module = {
           question: 'رتب formule د MOYENNE د C2 حتى C10:',
           parts: ['C10)', 'MOYENNE(', '=', 'C2:'],
           correctOrder: [2, 1, 3, 0],
+          hint: 'ديما: = MOYENNE( plage )',
         },
         {
           id: 'mod3-les7-ex3',
@@ -369,6 +398,7 @@ export const MODULE_3: Module = {
           question: 'رتب formule MAX من A1 حتى A5:',
           parts: ['A5)', 'MAX(', '=', 'A1:'],
           correctOrder: [2, 1, 3, 0],
+          hint: 'ديما: = MAX( plage )',
         },
       ],
     },

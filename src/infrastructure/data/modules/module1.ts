@@ -1,4 +1,4 @@
-﻿import { Module } from '../../../domain/curriculum/Module';
+import { Module } from '../../../domain/curriculum/Module';
 import { colors } from '../../../presentation/theme/colors';
 
 export const MODULE_1: Module = {
@@ -52,6 +52,7 @@ export const MODULE_1: Module = {
           question: 'شنو كيتسمى fichier Excel كلو؟',
           options: ['Feuille', 'Classeur', 'Cellule', 'Ruban'],
           correctIndex: 1,
+          hint: 'Classeur = دفتر Excel كامل',
         },
         {
           id: 'mod1-les1-ex2',
@@ -59,12 +60,14 @@ export const MODULE_1: Module = {
           question: 'فين كاين tabs (Accueil, Insertion...) ف Excel؟',
           options: ['ف التحت', 'ف اليسار', 'ف الـ Ruban', 'ف الـ cellule'],
           correctIndex: 2,
+          hint: 'Ruban كاين ف الفوق د Excel',
         },
         {
           id: 'mod1-les1-ex3',
           type: 'true_false',
           question: 'Classeur و Feuille – هما نفس الحاجة.',
           correctIndex: 1,
+          hint: 'Classeur = fichier كامل، Feuille = page واحدة',
         },
         {
           id: 'mod1-les1-ex4',
@@ -72,6 +75,7 @@ export const MODULE_1: Module = {
           question: 'سمية د cellule ف أول صف و أول عمود – شنو هي؟',
           options: ['B2', 'A1', 'C3', 'A0'],
           correctIndex: 1,
+          hint: 'حرف الأول = A، رقم الأول = 1',
         },
         {
           id: 'mod1-les1-ex5',
@@ -79,6 +83,7 @@ export const MODULE_1: Module = {
           question: 'Extension د fichier Excel هي:',
           options: ['.docx', '.pdf', '.xlsx', '.mp3'],
           correctIndex: 2,
+          hint: 'Excel كيخدم بـ .xlsx منذ 2007',
         },
       ],
     },
@@ -122,6 +127,7 @@ export const MODULE_1: Module = {
           ],
           correctCell: { row: 2, col: 2 },
           gridInstruction: 'شوف وكتب على cellule B2',
+          hint: 'B = عمود 2، 2 = صف 2',
         },
         {
           id: 'mod1-les2-ex2',
@@ -129,12 +135,14 @@ export const MODULE_1: Module = {
           question: 'Cellule ف عمود C و صف 5 – شنو سميتها؟',
           options: ['C5', '5C', 'C-5', 'Col5'],
           correctIndex: 0,
+          hint: 'حرف = عمود، رقم = صف – الحرف يجي أولاً',
         },
         {
           id: 'mod1-les2-ex3',
           type: 'true_false',
           question: 'Tab كايدي ف cellule التحت.',
           correctIndex: 1,
+          hint: 'Enter هو لي كيدي للتحت – Tab فين كيدي؟',
         },
         {
           id: 'mod1-les2-ex4',
@@ -142,6 +150,7 @@ export const MODULE_1: Module = {
           question: 'Cellule ف عمود D و صف 7 – سميتها هي:',
           correctAnswer: 'D7',
           placeholder: 'كتب سمية د cellule...',
+          hint: 'D = عمود، 7 = صف',
         },
         {
           id: 'mod1-les2-ex5',
@@ -149,6 +158,7 @@ export const MODULE_1: Module = {
           question: 'أش كيتسمى المربع الواحد ف Excel؟',
           options: ['Case', 'Cellule', 'Colonne', 'Ligne'],
           correctIndex: 1,
+          hint: 'المربع الواحد ف table كيتسمى بكلمة française',
         },
       ],
     },
@@ -186,6 +196,7 @@ export const MODULE_1: Module = {
           question: 'أش كادير Tab ف Excel؟',
           options: ['كيصيفط للتحت', 'كيصيفط لليمين', 'كيصيفط للفوق', 'كيسد Excel'],
           correctIndex: 1,
+          hint: 'Tab كيصيفط من cellule لأخرى ف نفس الصف',
         },
         {
           id: 'mod1-les3-ex2',
@@ -193,12 +204,14 @@ export const MODULE_1: Module = {
           question: 'باش ترجع ل A1 من أي cellule كادير:',
           options: ['Ctrl+End', 'Alt+Home', 'Ctrl+Home', 'F5'],
           correctIndex: 2,
+          hint: 'Home كيرجع للبداية – مع Ctrl؟',
         },
         {
           id: 'mod1-les3-ex3',
           type: 'true_false',
           question: 'Enter كايدي لليمين ف Excel.',
           correctIndex: 1,
+          hint: 'A1 → Enter → A2 – لأين كادي؟',
         },
         {
           id: 'mod1-les3-ex4',
@@ -206,6 +219,7 @@ export const MODULE_1: Module = {
           question: 'Shift+Tab ف Excel كايدي:',
           options: ['التحت', 'اليسار', 'اليمين', 'الفوق'],
           correctIndex: 1,
+          hint: 'Tab كيمشي لليمين – Shift كيعكسو',
         },
       ],
     },
@@ -243,6 +257,7 @@ export const MODULE_1: Module = {
           question: '"Ali Benali" ف Excel – شنو نوع د data؟',
           options: ['Nombre', 'Date', 'Texte', 'Formule'],
           correctIndex: 2,
+          hint: 'الأسماء و الكلام هي Texte',
         },
         {
           id: 'mod1-les4-ex2',
@@ -250,12 +265,14 @@ export const MODULE_1: Module = {
           question: '"85" ف Excel – شنو نوع د data؟',
           options: ['Texte', 'Nombre', 'Date', 'Formule'],
           correctIndex: 1,
+          hint: '85 رقم – Excel كيفهمو كـ Nombre',
         },
         {
           id: 'mod1-les4-ex3',
           type: 'true_false',
           question: 'Texte ف Excel كيدار فوق ف اليسار.',
           correctIndex: 0,
+          hint: 'رقم كيتصيفط اليمين – Texte فين؟',
         },
         {
           id: 'mod1-les4-ex4',
@@ -263,6 +280,7 @@ export const MODULE_1: Module = {
           question: '"15/09/2024" ف Excel هي:',
           options: ['Texte', 'Nombre', 'Date', 'Formule'],
           correctIndex: 2,
+          hint: 'JJ/MM/AAAA = format د Date',
         },
         {
           id: 'mod1-les4-ex5',
@@ -270,6 +288,7 @@ export const MODULE_1: Module = {
           question: 'رقم ف Excel كيتصيفط ف:',
           options: ['اليسار', 'الوسط', 'اليمين', 'الفوق'],
           correctIndex: 2,
+          hint: 'Texte اليسار – Nombre كيتصيفط ف عكسو',
         },
       ],
     },
@@ -307,6 +326,7 @@ export const MODULE_1: Module = {
           question: 'شنو raccourci clavier باش تسوڤگاردي ف Excel؟',
           options: ['Ctrl+P', 'Ctrl+S', 'Ctrl+Z', 'Ctrl+C'],
           correctIndex: 1,
+          hint: 'S = Save ف الإنجليزية',
         },
         {
           id: 'mod1-les5-ex2',
@@ -314,12 +334,14 @@ export const MODULE_1: Module = {
           question: 'Extension د fichier Excel هي:',
           options: ['.doc', '.xlsx', '.ppt', '.txt'],
           correctIndex: 1,
+          hint: 'Excel كيخدم بـ .xlsx',
         },
         {
           id: 'mod1-les5-ex3',
           type: 'true_false',
           question: 'Ctrl+S كايديرو لـ impression (imprimer).',
           correctIndex: 1,
+          hint: 'Impression = Ctrl+P – S كادير أش؟',
         },
         {
           id: 'mod1-les5-ex4',
@@ -327,6 +349,7 @@ export const MODULE_1: Module = {
           question: 'يلا بغيتي تبارطاجي fichier مع شي حد ما عندوش Excel – شنو تسوڤگاردي؟',
           options: ['.xlsx', '.pdf', '.xls', '.doc'],
           correctIndex: 1,
+          hint: 'PDF كيتقرا من أي جهاز بلا Excel',
         },
       ],
     },
@@ -359,6 +382,7 @@ export const MODULE_1: Module = {
           ],
           correctCell: { row: 3, col: 3 },
           gridInstruction: 'طابي على cellule C3',
+          hint: 'C = عمود 3، 3 = صف 3',
         },
         {
           id: 'mod1-les6-ex2',
@@ -372,6 +396,7 @@ export const MODULE_1: Module = {
           ],
           correctCell: { row: 1, col: 2 },
           gridInstruction: 'طابي على cellule B1',
+          hint: 'B = عمود 2، 1 = صف 1',
         },
         {
           id: 'mod1-les6-ex3',
@@ -386,6 +411,7 @@ export const MODULE_1: Module = {
           ],
           correctCell: { row: 4, col: 4 },
           gridInstruction: 'طابي على cellule D4',
+          hint: 'D = عمود 4، 4 = صف 4',
         },
       ],
     },

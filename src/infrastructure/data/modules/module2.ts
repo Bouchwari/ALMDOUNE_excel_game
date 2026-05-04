@@ -1,4 +1,4 @@
-﻿import { Module } from '../../../domain/curriculum/Module';
+import { Module } from '../../../domain/curriculum/Module';
 import { colors } from '../../../presentation/theme/colors';
 
 export const MODULE_2: Module = {
@@ -46,12 +46,14 @@ export const MODULE_2: Module = {
           question: 'شنو raccourci clavier باش تدير texte GRAS ف Excel؟',
           options: ['Ctrl+I', 'Ctrl+G', 'Ctrl+U', 'Ctrl+B'],
           correctIndex: 1,
+          hint: 'G = Gras / Bold بالدارجة',
         },
         {
           id: 'mod2-les1-ex2',
           type: 'true_false',
           question: 'Ctrl+I ف Excel كايدير texte gras.',
           correctIndex: 1,
+          hint: 'I = Italique – مايل مو Gras',
         },
         {
           id: 'mod2-les1-ex3',
@@ -59,6 +61,7 @@ export const MODULE_2: Module = {
           question: 'Police par défaut د Excel هي:',
           options: ['Arial', 'Times New Roman', 'Calibri', 'Comic Sans'],
           correctIndex: 2,
+          hint: 'كاين ف Accueil جنب taille – 7 حروف تبدا بـ C',
         },
         {
           id: 'mod2-les1-ex4',
@@ -66,6 +69,7 @@ export const MODULE_2: Module = {
           question: 'يلا بغيتي تكبر الحروف ف cellule، كادير:',
           options: ['Taille صغر', 'Taille كبر', 'Police تبدل', 'Couleur تبدل'],
           correctIndex: 1,
+          hint: 'الرقم جنب police هو لي كيحكم الحجم',
         },
         {
           id: 'mod2-les1-ex5',
@@ -73,6 +77,7 @@ export const MODULE_2: Module = {
           question: 'Ctrl+U ف Excel كايدير:',
           options: ['Gras', 'Italique', 'Souligné', 'Rouge'],
           correctIndex: 2,
+          hint: 'U = Underline – خيط تحت الكلام',
         },
       ],
     },
@@ -104,12 +109,14 @@ export const MODULE_2: Module = {
           question: 'Icône د pot د couleur (🎨) ف Excel كايدير:',
           options: ['Couleur د texte', 'Couleur د fond د cellule', 'Bordure', 'Police'],
           correctIndex: 1,
+          hint: 'Pot د couleur كيدير couleur د fond بحال طلاء',
         },
         {
           id: 'mod2-les2-ex2',
           type: 'true_false',
           question: 'تقدر تدير texte بيض ف fond بيض و يتقرا مزيان.',
           correctIndex: 1,
+          hint: 'فكر – واش تقرا كلام بيض ف ورقة بيضا؟',
         },
         {
           id: 'mod2-les2-ex3',
@@ -117,6 +124,7 @@ export const MODULE_2: Module = {
           question: 'فين كاين couleur د texte ف Ruban؟',
           options: ['Tab Insertion', 'Tab Accueil', 'Tab Affichage', 'Tab Données'],
           correctIndex: 1,
+          hint: 'كاع options د mise en forme كاينة ف نفس tab',
         },
       ],
     },
@@ -148,6 +156,7 @@ export const MODULE_2: Module = {
           question: 'أش كادير bordure ف Excel؟',
           options: ['تبدل couleur', 'تزيد خيوط حول cellules', 'تكبر police', 'تسوڤگاردي'],
           correctIndex: 1,
+          hint: 'Bordure = إطار أو خيط حول cellule',
         },
         {
           id: 'mod2-les3-ex2',
@@ -155,12 +164,14 @@ export const MODULE_2: Module = {
           question: 'فين كاين option د bordures ف Ruban؟',
           options: ['Tab Formules', 'Tab Insertion', 'Tab Accueil', 'Tab Révision'],
           correctIndex: 2,
+          hint: 'كاين ف نفس tab لي فيه Gras و Police',
         },
         {
           id: 'mod2-les3-ex3',
           type: 'true_false',
           question: 'Bordures ف Excel – كايبانو ف impression (print).',
           correctIndex: 0,
+          hint: 'يلا ما شدتيشهم، ما كيبانوش ف print',
         },
       ],
     },
@@ -192,12 +203,14 @@ export const MODULE_2: Module = {
           question: 'Fusionner et centrer مستعملة بزاف لـ:',
           options: ['Données', 'Titre د tableau', 'Formules', 'Dates'],
           correctIndex: 1,
+          hint: 'الفيوزيون كيدير cellule كبيرة واحدة – مزيان للعنوان',
         },
         {
           id: 'mod2-les4-ex2',
           type: 'true_false',
           question: 'منين كاتفوزيوني cellules – data د كل cellule كاتبقى.',
           correctIndex: 1,
+          hint: 'data ف cellule اليسار غير هي لي كاتبقى',
         },
         {
           id: 'mod2-les4-ex3',
@@ -205,6 +218,7 @@ export const MODULE_2: Module = {
           question: 'فين كاين "Fusionner et centrer" ف Excel؟',
           options: ['Tab Insertion', 'Tab Accueil', 'Tab Données', 'Tab Affichage'],
           correctIndex: 1,
+          hint: 'كاين ف section "Alignement" ف Accueil',
         },
       ],
     },
@@ -242,12 +256,14 @@ export const MODULE_2: Module = {
           question: '0.65 ب format % كايبان:',
           options: ['6.5%', '65%', '0.65%', '650%'],
           correctIndex: 1,
+          hint: '0.65 × 100 = ؟',
         },
         {
           id: 'mod2-les5-ex2',
           type: 'true_false',
           question: 'Format Monnaie كايدير signe DH ولا MAD قبل الرقم.',
           correctIndex: 0,
+          hint: 'DH = Dirham – format Monnaie كيزيدو بعد الرقم',
         },
         {
           id: 'mod2-les5-ex3',
@@ -255,6 +271,7 @@ export const MODULE_2: Module = {
           question: 'باش تدير 2 décimales ف رقم ف Excel:',
           options: ['تبدل police', 'Format Nombre ← Décimales', 'تبدل couleur', 'Ctrl+D'],
           correctIndex: 1,
+          hint: 'تقدر تبدل عدد décimales ف Format Nombre',
         },
         {
           id: 'mod2-les5-ex4',
@@ -262,6 +279,7 @@ export const MODULE_2: Module = {
           question: 'رقم 1 ب format % كايبان:',
           options: ['1%', '10%', '100%', '0.01%'],
           correctIndex: 2,
+          hint: '1 × 100 = ؟',
         },
       ],
     },
@@ -287,6 +305,7 @@ export const MODULE_2: Module = {
           question: 'Cellule ب titre GRAS و couleur خضرا – شنو مفورماطية؟',
           options: ['Italique + حمر', 'Gras + vert (remplissage)', 'Souligné + زرق', 'Normal + صفر'],
           correctIndex: 1,
+          hint: 'Gras = police، خضرا = remplissage',
         },
         {
           id: 'mod2-les6-ex2',
@@ -294,6 +313,7 @@ export const MODULE_2: Module = {
           question: 'Prix "250,00 DH" – شنو format مستعمل؟',
           options: ['Texte', 'Pourcentage', 'Monnaie', 'Date'],
           correctIndex: 2,
+          hint: 'DH = الدرهم – format د فلوس',
         },
         {
           id: 'mod2-les6-ex3',
@@ -301,12 +321,14 @@ export const MODULE_2: Module = {
           question: 'Cellule فيها "85%" – شنو format مستعمل؟',
           options: ['Nombre', 'Monnaie', 'Date', 'Pourcentage'],
           correctIndex: 3,
+          hint: '% = Pourcentage',
         },
         {
           id: 'mod2-les6-ex4',
           type: 'true_false',
           question: 'Fusionner cellules مزيان ل en-têtes د tableaux.',
           correctIndex: 0,
+          hint: 'en-têtes ف tableau كاينة ف صف الأول',
         },
       ],
     },

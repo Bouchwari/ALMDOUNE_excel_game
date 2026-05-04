@@ -1,4 +1,4 @@
-﻿import { Module } from '../../../domain/curriculum/Module';
+import { Module } from '../../../domain/curriculum/Module';
 import { colors } from '../../../presentation/theme/colors';
 
 export const MODULE_6: Module = {
@@ -40,6 +40,7 @@ export const MODULE_6: Module = {
           question: 'أش كتعني $ ف référence $A$1؟',
           options: ['كتبدل automatiquement', 'كتبقى fixe (absolue)', 'Formule spéciale', 'Erreur'],
           correctIndex: 1,
+          hint: '$ بحال pin ف بلاصة – ما تتحركش',
         },
         {
           id: 'mod6-les1-ex2',
@@ -47,12 +48,14 @@ export const MODULE_6: Module = {
           question: 'Raccourci باش تدير référence absolue هي:',
           options: ['F1', 'F4', 'F2', 'Ctrl+A'],
           correctIndex: 1,
+          hint: 'كليك ف référence ف formule من بعد هاد key',
         },
         {
           id: 'mod6-les1-ex3',
           type: 'true_false',
           question: 'A1 و $A$1 – هما نفس الحاجة ديما.',
           correctIndex: 1,
+          hint: 'ملي تنقل formule – شكون لي يتبدل؟',
         },
         {
           id: 'mod6-les1-ex4',
@@ -60,6 +63,7 @@ export const MODULE_6: Module = {
           question: 'كتب référence absolue د cellule B5:',
           correctAnswer: '$B$5',
           placeholder: '$...$...',
+          hint: 'دير $ قبل حرف و $ قبل رقم',
         },
       ],
     },
@@ -91,6 +95,7 @@ export const MODULE_6: Module = {
           question: 'RECHERCHEV كيقلب على valeur فـ:',
           options: ['كل feuille', 'Colonne الأولى د tableau', 'صف الأول', 'كل cellules'],
           correctIndex: 1,
+          hint: 'V = Vertical – كيقلب ف عمود مو صف',
         },
         {
           id: 'mod6-les2-ex2',
@@ -98,12 +103,14 @@ export const MODULE_6: Module = {
           question: '=RECHERCHEV("Omar",A1:C20,2,0) – "2" كتعني:',
           options: ['2ème feuille', '2ème ligne', '2ème colonne', '2ème classeur'],
           correctIndex: 2,
+          hint: 'الرقم 2 كيشير للعمود – مو الصف',
         },
         {
           id: 'mod6-les2-ex3',
           type: 'true_false',
           question: 'Argument 0 ف RECHERCHEV كتعني valeur exacte.',
           correctIndex: 0,
+          hint: '0 = صافي / مضبوط – 1 = تقريبي',
         },
         {
           id: 'mod6-les2-ex4',
@@ -111,6 +118,7 @@ export const MODULE_6: Module = {
           question: 'Formule RECHERCHEV باش تلقى note د "Sara" ف tableau A1:B20:',
           correctAnswer: '=RECHERCHEV("Sara",A1:B20,2,0)',
           placeholder: '=RECHERCHEV(...)',
+          hint: '"Sara" هي valeur cherchée، A1:B20 tableau، 2 = colonne د note',
         },
       ],
     },
@@ -136,6 +144,7 @@ export const MODULE_6: Module = {
           question: 'SIERREUR كايدير:',
           options: ['كيخلي erreur تبان', 'كيخلي erreur ما تبانش – يبان message زوين', 'كايدير calcul', 'كايدير tri'],
           correctIndex: 1,
+          hint: 'SIERREUR = كيتعامل مع الأخطاء بطريقة زوينة',
         },
         {
           id: 'mod6-les3-ex2',
@@ -143,12 +152,14 @@ export const MODULE_6: Module = {
           question: '#N/A ف Excel كتعني:',
           options: ['Calcul صافي', 'Valeur ما لقاهاش', 'Erreur division', 'Taille كبيرة'],
           correctIndex: 1,
+          hint: 'N/A = Not Available = ما لقاهاش',
         },
         {
           id: 'mod6-les3-ex3',
           type: 'true_false',
           question: 'SIERREUR مزيان بزاف ملي كدير RECHERCHEV.',
           correctIndex: 0,
+          hint: 'RECHERCHEV ممكن ما يلقاش valeur – فين تجي SIERREUR؟',
         },
       ],
     },
@@ -174,6 +185,7 @@ export const MODULE_6: Module = {
           question: 'Formule باش تجمع A1 و B1 ب espace بيناتهم:',
           correctAnswer: '=A1&" "&B1',
           placeholder: '=...',
+          hint: '& كيجمع texte – espace هو " "',
         },
         {
           id: 'mod6-les4-ex2',
@@ -181,12 +193,14 @@ export const MODULE_6: Module = {
           question: 'A1="Maths"، B1=" - 6ème A". =A1&B1 ← :',
           options: ['"Maths 6ème A"', '"Maths - 6ème A"', '"6ème A Maths"', 'Erreur'],
           correctIndex: 1,
+          hint: '& كيضم texte يين بعض بدون تغيير',
         },
         {
           id: 'mod6-les4-ex3',
           type: 'true_false',
           question: '& ف Excel كيجمع texte و أرقام و références.',
           correctIndex: 0,
+          hint: 'تقدر تدير texte & nombre & référence',
         },
       ],
     },
@@ -212,12 +226,14 @@ export const MODULE_6: Module = {
           question: '=SI(MOYENNE(A1:A5)>=10,"Reçu","Échoué") – MOYENNE(A1:A5)=12 ← النتيجة:',
           options: ['Échoué', '12', 'Reçu', 'Erreur'],
           correctIndex: 2,
+          hint: '12 >= 10 → صحيح أولا غلط؟',
         },
         {
           id: 'mod6-les5-ex2',
           type: 'true_false',
           question: 'تقدر تدير formule ف وسط خرى ف Excel.',
           correctIndex: 0,
+          hint: 'هادا كيتسمى formule imbriquée أو nested',
         },
         {
           id: 'mod6-les5-ex3',
@@ -225,6 +241,7 @@ export const MODULE_6: Module = {
           question: 'ف =SI(MOYENNE(B:B)>10,...) – شنو هو لي كيخدم الأول؟',
           options: ['SI', 'MOYENNE', 'B:B', 'كلهم بحال بحال'],
           correctIndex: 1,
+          hint: 'Excel كيبدا من الداخل للخارج',
         },
       ],
     },
@@ -250,6 +267,7 @@ export const MODULE_6: Module = {
           question: '"SOMME(A1:A10)" – أش ناقص؟',
           options: ['والو', '= ف البداية', 'Parenthèse', 'Colonne'],
           correctIndex: 1,
+          hint: 'كاع formules كاتبدا بـ هاد signe',
         },
         {
           id: 'mod6-les6-ex2',
@@ -257,6 +275,7 @@ export const MODULE_6: Module = {
           question: '"=SOMME[A1:A10]" – أش غالط؟',
           options: ['والو غالط', '[] بدل ()', 'SOMME غالطة', '= غالطة'],
           correctIndex: 1,
+          hint: 'Parenthèses = () مو []',
         },
         {
           id: 'mod6-les6-ex3',
@@ -264,6 +283,7 @@ export const MODULE_6: Module = {
           question: 'صلح هاد formule: "=MOYEN(B1:B5)"',
           correctAnswer: '=MOYENNE(B1:B5)',
           placeholder: '=...',
+          hint: 'MOYEN ما هيش اسم صحيح – فكر ف الاسم الكامل',
         },
       ],
     },
