@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, TextInput,
-  ScrollView, Animated,
+  ScrollView, Animated, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { Exercise } from '../../domain/curriculum/Exercise';
 import { spacing, radius } from '../theme/spacing';
@@ -31,6 +31,7 @@ export function ExerciseScreen({ exercises, lessonTitle, onComplete, onBack }: P
   const [selectedCell, setSelectedCell] = useState<{ row: number; col: number } | null>(null);
   const [dragOrder, setDragOrder] = useState<number[]>([]);
   const [hintVisible, setHintVisible] = useState(false);
+  const [hintsUsed, setHintsUsed] = useState(0);
   const [streak, setStreak] = useState(0);
 
   const flashAnim = useRef(new Animated.Value(1)).current;
@@ -58,7 +59,7 @@ export function ExerciseScreen({ exercises, lessonTitle, onComplete, onBack }: P
     animateSlideIn();
   }, [idx]);
 
-  const showHint = () => setHintVisible(true);
+  const showHint = () => { setHintVisible(true); setHintsUsed(h => h + 1); };
 
   const flashGreen = () => {
     Animated.sequence([
@@ -101,8 +102,9 @@ export function ExerciseScreen({ exercises, lessonTitle, onComplete, onBack }: P
 
   const handleNext = () => {
     if (isLast) {
-      const finalCorrect = answerState === 'correct' ? correct : correct;
-      onComplete(Math.round((finalCorrect / exercises.length) * 100));
+      const rawScore = Math.round((correct / exercises.length) * 100);
+      const penalty = hintsUsed * 5;
+      onComplete(Math.max(0, rawScore - penalty));
     } else {
       setIdx(i => i + 1);
     }
@@ -145,6 +147,7 @@ export function ExerciseScreen({ exercises, lessonTitle, onComplete, onBack }: P
   const feedbackBorderColor = answerState === 'correct' ? colors.success : colors.error;
 
   return (
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
     <Animated.View style={[styles.container, { transform: [{ translateX: shakeAnim }] }]}>
       <View style={styles.header}>
         <TouchableOpacity onPress={onBack} style={styles.backBtn}>
@@ -366,6 +369,7 @@ export function ExerciseScreen({ exercises, lessonTitle, onComplete, onBack }: P
         </View>
       )}
     </Animated.View>
+    </KeyboardAvoidingView>
   );
 }
 

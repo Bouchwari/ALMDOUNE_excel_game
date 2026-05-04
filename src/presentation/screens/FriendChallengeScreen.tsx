@@ -44,7 +44,7 @@ export function FriendChallengeScreen({ onCreate, onScan, onBack }: Props) {
 
         <View style={styles.dividerRow}>
           <View style={styles.divider} />
-          <Text style={styles.dividerText}>Khtar</Text>
+          <Text style={styles.dividerText}>{S.classChallengeOrDivider}</Text>
           <View style={styles.divider} />
         </View>
 

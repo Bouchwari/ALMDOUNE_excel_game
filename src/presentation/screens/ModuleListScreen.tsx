@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { spacing, radius, shadow } from '../theme/spacing';
 import { ModuleCard } from '../components/ModuleCard';
 import { SkeletonModuleCard } from '../components/SkeletonCard';
@@ -162,6 +162,7 @@ export function ModuleListScreen({
   );
 
   return (
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
     <FlatList
       style={[styles.container, { paddingTop: top }]}
       data={filtered}
@@ -176,6 +177,7 @@ export function ModuleListScreen({
       windowSize={7}
       removeClippedSubviews
     />
+    </KeyboardAvoidingView>
   );
 }
 

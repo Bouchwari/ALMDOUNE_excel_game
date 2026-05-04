@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, TextInput,
+  View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform,
   ScrollView, Animated,
 } from 'react-native';
 import { Exercise } from '../../domain/curriculum/Exercise';
@@ -109,6 +109,7 @@ export function FriendChallengePlayScreen({ exercises, role, hostName, onComplet
   const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 
   return (
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
     <Animated.View style={[styles.container, { transform: [{ translateX: shakeAnim }] }]}>
       <View style={[styles.header, { borderBottomColor: accentColor }]}>
         <TouchableOpacity onPress={onBack} style={styles.backBtn}>
@@ -235,6 +236,7 @@ export function FriendChallengePlayScreen({ exercises, role, hostName, onComplet
         </View>
       )}
     </Animated.View>
+    </KeyboardAvoidingView>
   );
 }
 

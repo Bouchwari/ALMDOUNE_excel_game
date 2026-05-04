@@ -191,6 +191,20 @@ export interface AppStrings {
   friendFriend: string;
   friendPlayAgain: string;
 
+  // Profile select
+  profileDeleteTitle: string;
+  profileDeleteMsg: string;
+  profileDeleteNo: string;
+  profileDeleteYes: string;
+  profileWhoTitle: string;
+  profileChooseLabel: string;
+  profileHoldHint: string;
+  profileNewBtn: string;
+
+  // Class challenge
+  classChallengeCountSuffix: string;
+  classChallengeOrDivider: string;
+
   // General
   locked: string;
   back: string;
@@ -355,6 +369,16 @@ const DARIJA_AR: AppStrings = {
   friendYou: 'نتا',
   friendFriend: 'صاحبك',
   friendPlayAgain: '🔄 لعب مع صاحبك',
+  profileDeleteTitle: 'مسح البروفايل؟',
+  profileDeleteMsg: 'واش بغيتي تمسح هاد البروفايل؟ هاد العملية ما كاتمشا3ش.',
+  profileDeleteNo: 'لا',
+  profileDeleteYes: 'ايه، امسح',
+  profileWhoTitle: 'شكون نتا؟ 👤',
+  profileChooseLabel: 'ختار بروفايلك:',
+  profileHoldHint: 'زيد ضغط باش تمسح',
+  profileNewBtn: 'بروفايل جديد',
+  classChallengeCountSuffix: 'سؤالات',
+  classChallengeOrDivider: 'أو',
   locked: 'مسدود 🔒',
   back: '→ رجع',
   englishNote: '',

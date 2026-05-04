@@ -41,7 +41,7 @@ export function ClassChallengeCreateScreen({ onPlaySelf, onBack }: Props) {
 
   const handleGenerate = useCallback(() => {
     const { exercises, poolIds } = generateClassChallenge(difficulty, count);
-    const title = `${diffLabels[difficulty]} – ${count} ${count === 5 ? 'so2alat' : 'questions'}`;
+    const title = `${diffLabels[difficulty]} – ${count} ${S.classChallengeCountSuffix}`;
     const payload: ClassChallengePayload = {
       v: 2,
       q: poolIds,

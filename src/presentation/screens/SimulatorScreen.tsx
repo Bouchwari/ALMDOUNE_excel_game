@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import {
   View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Dimensions,
+  KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { spacing, radius } from '../theme/spacing';
 import { useLanguage } from '../../shared/context/LanguageContext';
@@ -254,6 +255,7 @@ export function SimulatorScreen() {
   ];
 
   return (
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
     <View style={[styles.container, { paddingTop: top }]}>
       {/* Title bar */}
       <View style={styles.titleBar}>
@@ -347,6 +349,7 @@ export function SimulatorScreen() {
         </ScrollView>
       </View>
     </View>
+    </KeyboardAvoidingView>
   );
 }
 

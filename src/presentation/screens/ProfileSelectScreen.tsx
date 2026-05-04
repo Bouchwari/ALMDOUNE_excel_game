@@ -5,6 +5,7 @@ import {
 import { Student } from '../../domain/student/Student';
 import { spacing, radius, shadow } from '../theme/spacing';
 import { useTheme, type ColorPalette } from '../../shared/context/ThemeContext';
+import { useLanguage } from '../../shared/context/LanguageContext';
 
 interface Props {
   students: Student[];
@@ -15,17 +16,18 @@ interface Props {
 
 export function ProfileSelectScreen({ students, onSelect, onCreateNew, onDelete }: Props) {
   const { colors } = useTheme();
+  const { S } = useLanguage();
   const styles = React.useMemo(() => makeStyles(colors), [colors]);
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const confirmDelete = (student: Student) => {
     Alert.alert(
-      'Mse7 Profil?',
-      `Wach bghi tmse7 profil "${student.name}"? Had l-3amaliya ma katmsha3ch.`,
+      S.profileDeleteTitle,
+      `${S.profileDeleteMsg.replace('؟', '')} "${student.name}"؟`,
       [
-        { text: 'La', style: 'cancel' },
+        { text: S.profileDeleteNo, style: 'cancel' },
         {
-          text: 'Iyeh, Mse7',
+          text: S.profileDeleteYes,
           style: 'destructive',
           onPress: () => onDelete(student.id),
         },
@@ -35,8 +37,15 @@ export function ProfileSelectScreen({ students, onSelect, onCreateNew, onDelete 
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Men Nta? 👤</Text>
-      <Text style={styles.subtitle}>Khtar profil dyalek:</Text>
+      <Text style={styles.title}>{S.profileWhoTitle}</Text>
+      <Text style={styles.subtitle}>{S.profileChooseLabel}</Text>
+
+      {students.length === 0 && (
+        <View style={styles.emptyState}>
+          <Text style={styles.emptyEmoji}>👤</Text>
+          <Text style={styles.emptyText}>ما كاين حتى بروفايل — دير واحد جديد!</Text>
+        </View>
+      )}
 
       <ScrollView contentContainerStyle={styles.grid} showsVerticalScrollIndicator={false}>
         {students.map(student => (
@@ -49,14 +58,14 @@ export function ProfileSelectScreen({ students, onSelect, onCreateNew, onDelete 
           >
             <Text style={styles.avatar}>{student.avatar}</Text>
             <Text style={styles.name} numberOfLines={1}>{student.name}</Text>
-            <Text style={styles.hint}>Hold = Mse7</Text>
+            <Text style={styles.hint}>{S.profileHoldHint}</Text>
           </TouchableOpacity>
         ))}
 
         {students.length < 10 && (
           <TouchableOpacity style={[styles.card, styles.newCard]} onPress={onCreateNew} activeOpacity={0.75}>
             <Text style={styles.plusIcon}>＋</Text>
-            <Text style={styles.newText}>Profil jdid</Text>
+            <Text style={styles.newText}>{S.profileNewBtn}</Text>
           </TouchableOpacity>
         )}
       </ScrollView>
@@ -71,6 +80,9 @@ export function ProfileSelectScreen({ students, onSelect, onCreateNew, onDelete 
 
 const makeStyles = (c: ColorPalette) => StyleSheet.create({
   container: { flex: 1, backgroundColor: c.splashBg, padding: spacing.xl },
+  emptyState: { alignItems: 'center', paddingVertical: spacing.xxl, gap: spacing.md },
+  emptyEmoji: { fontSize: 56 },
+  emptyText: { fontSize: 15, color: c.textSecondary, textAlign: 'center' },
   title: { fontSize: 28, fontWeight: '800', color: c.textPrimary, marginTop: spacing.xxxl },
   subtitle: { fontSize: 15, color: c.textSecondary, marginBottom: spacing.xl },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.md, paddingBottom: spacing.xl },
