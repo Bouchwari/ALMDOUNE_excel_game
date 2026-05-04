@@ -166,10 +166,10 @@ export function FriendChallengePlayScreen({ exercises, role, hostName, onComplet
               if (answerState !== 'idle') {
                 if (i === exercise.correctIndex) {
                   optStyle = { ...styles.optionBtn, ...styles.optionCorrect };
-                  textStyle = { ...styles.optionText, color: '#FFFFFF' };
+                  textStyle = { ...styles.optionText, color: colors.white };
                 } else if (i === selectedOption && answerState === 'wrong') {
                   optStyle = { ...styles.optionBtn, ...styles.optionWrong };
-                  textStyle = { ...styles.optionText, color: '#FFFFFF' };
+                  textStyle = { ...styles.optionText, color: colors.white };
                 }
               } else if (i === selectedOption) {
                 optStyle = { ...styles.optionBtn, borderColor: accentColor, borderWidth: 2 };
@@ -192,14 +192,13 @@ export function FriendChallengePlayScreen({ exercises, role, hostName, onComplet
           <View style={styles.tfRow}>
             {[{ label: S.trueBtn, idx: 0 }, { label: S.falseBtn, idx: 1 }].map(btn => {
               const isCorrect = btn.idx === exercise.correctIndex;
-              let btnStyle = [styles.tfBtn];
-              if (answerState !== 'idle') {
-                if (isCorrect) btnStyle = [...btnStyle, styles.optionCorrect as any];
-                else if (btn.idx === selectedOption && answerState === 'wrong') btnStyle = [...btnStyle, styles.optionWrong as any];
-              }
               return (
                 <TouchableOpacity
-                  key={btn.idx} style={btnStyle}
+                  key={btn.idx} style={[
+                    styles.tfBtn,
+                    answerState !== 'idle' && isCorrect && styles.optionCorrect,
+                    answerState !== 'idle' && btn.idx === selectedOption && answerState === 'wrong' && styles.optionWrong,
+                  ]}
                   onPress={() => { setSelectedOption(btn.idx); handleAnswer(btn.idx === exercise.correctIndex); }}
                   disabled={answerState !== 'idle'} activeOpacity={0.75}
                 >
@@ -304,8 +303,8 @@ const makeStyles = (c: ColorPalette) => StyleSheet.create({
   fillCorrect: { borderColor: c.success, backgroundColor: '#C8E6C9' },
   fillWrong: { borderColor: c.error, backgroundColor: '#FFCDD2' },
   checkBtn: { borderRadius: radius.pill, padding: spacing.md, alignItems: 'center' },
-  checkBtnText: { color: '#FFFFFF', fontWeight: '700', fontSize: 15 },
+  checkBtnText: { color: c.white, fontWeight: '700', fontSize: 15 },
   footer: { padding: spacing.lg, backgroundColor: c.surface, borderTopWidth: 1, borderTopColor: c.border },
   nextBtn: { borderRadius: radius.pill, padding: spacing.lg, alignItems: 'center' },
-  nextText: { color: '#FFFFFF', fontSize: 16, fontWeight: '700' },
+  nextText: { color: c.white, fontSize: 16, fontWeight: '700' },
 });

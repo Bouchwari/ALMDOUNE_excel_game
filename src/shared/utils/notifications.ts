@@ -16,7 +16,7 @@ Notifications.setNotificationHandler({
 async function ensureChannel(): Promise<void> {
   if (Platform.OS !== 'android') return;
   await Notifications.setNotificationChannelAsync(CHANNEL_ID, {
-    name: 'Rappels ExcelStar',
+    name: 'تذكيرات ExcelStar',
     importance: Notifications.AndroidImportance.DEFAULT,
     vibrationPattern: [0, 250, 250, 250],
     sound: 'default',
@@ -35,8 +35,8 @@ export async function scheduleStreakReminder(): Promise<void> {
 
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: 'Wach nsiti ExcelStar? 📚',
-      body: 'Ji t3ellem daba! ✨ Zid 3la haka!',
+      title: 'واش نسيتي ExcelStar؟ 📚',
+      body: 'جي تعلم دبا! ✨ زيد على هاكا!',
       sound: 'default',
       ...(Platform.OS === 'android' && { channelId: CHANNEL_ID }),
     },

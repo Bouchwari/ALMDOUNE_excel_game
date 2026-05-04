@@ -150,5 +150,5 @@ const makeStyles = (c: ColorPalette) => StyleSheet.create({
     backgroundColor: c.primary, borderRadius: radius.pill,
     paddingHorizontal: spacing.xxxl, paddingVertical: spacing.lg,
   },
-  permissionBtnText: { color: '#FFFFFF', fontWeight: '700', fontSize: 15 },
+  permissionBtnText: { color: c.white, fontWeight: '700', fontSize: 15 },
 });

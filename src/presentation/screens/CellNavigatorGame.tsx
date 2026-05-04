@@ -235,9 +235,9 @@ const makeStyles = (c: ColorPalette) => StyleSheet.create({
     paddingTop: spacing.md, paddingHorizontal: spacing.lg, paddingBottom: spacing.md, gap: spacing.sm,
   },
   backBtn: { padding: spacing.xs },
-  backText: { fontSize: 18, color: '#FFFFFF', fontWeight: '700' },
-  title: { flex: 1, fontSize: 18, fontWeight: '800', color: '#FFFFFF', textAlign: 'center' },
-  roundText: { fontSize: 14, color: '#FFFFFF', fontWeight: '600', opacity: 0.9 },
+  backText: { fontSize: 18, color: c.white, fontWeight: '700' },
+  title: { flex: 1, fontSize: 18, fontWeight: '800', color: c.white, textAlign: 'center' },
+  roundText: { fontSize: 14, color: c.white, fontWeight: '600', opacity: 0.9 },
   progressTrack: { height: 4, backgroundColor: c.border },
   progressFill: { height: 4, backgroundColor: c.accentBlue },
   statsRow: {

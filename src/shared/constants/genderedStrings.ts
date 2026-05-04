@@ -34,11 +34,11 @@ const DARIJA_AR: GenderedStrings = {
   },
   welcomeBack: {
     male:   'مرحبا بيك! 👋',
-    female: 'مرحبا بيك! 👋',
+    female: 'مرحبا بيكي! 👋',
   },
   wellDone: {
-    male:   'برافو! 🎉',
-    female: 'برافو! 🎉',
+    male:   'برافو عليك! 🎉',
+    female: 'برافو عليكي! 🎉',
   },
 };
 
