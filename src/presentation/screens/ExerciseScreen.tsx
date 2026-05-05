@@ -204,6 +204,11 @@ export function ExerciseScreen({ exercises, lessonTitle, onComplete, onBack }: P
                 {S.correctAnswer} {exercise.correctIndex === 0 ? S.trueBtn : S.falseBtn}
               </Text>
             )}
+            {exercise.explanation && (
+              <Text style={[styles.explanationText, { color: feedbackBorderColor }]}>
+                💡 {exercise.explanation}
+              </Text>
+            )}
           </Animated.View>
         )}
 
@@ -399,6 +404,7 @@ const makeStyles = (c: ColorPalette) => StyleSheet.create({
   },
   feedbackText: { fontSize: 18, fontWeight: '700', textAlign: 'center' },
   correctAnswerHint: { fontSize: 13, textAlign: 'center', marginTop: 2 },
+  explanationText: { fontSize: 13, textAlign: 'center', marginTop: 6, fontStyle: 'italic', opacity: 0.9 },
   questionCard: {
     backgroundColor: c.surface, borderRadius: radius.lg, padding: spacing.lg,
     gap: spacing.sm, borderLeftWidth: 4, borderLeftColor: c.accent,

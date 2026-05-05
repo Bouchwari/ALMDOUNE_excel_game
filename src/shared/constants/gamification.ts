@@ -4,7 +4,7 @@ export const LEVELS = [
   { level: 3, name: 'Motawasset', nameAr: 'متوسط',        xpRequired: 300,  badge: '⭐', color: '#E67E22' },
   { level: 4, name: 'Mtaqqan',    nameAr: 'متقن',         xpRequired: 600,  badge: '🔥', color: '#3498DB' },
   { level: 5, name: 'Expert',     nameAr: 'خبير',         xpRequired: 1000, badge: '💎', color: '#9B59B6' },
-  { level: 6, name: 'Excel Star', nameAr: 'نجم إكسيل',   xpRequired: 1500, badge: '🏆', color: '#E74C3C' },
+  { level: 6, name: 'Almdoun Master', nameAr: 'نجم ألمدون',   xpRequired: 1500, badge: '🏆', color: '#E74C3C' },
 ];
 
 export const XP_REWARDS = {
@@ -34,7 +34,7 @@ export const BADGES = [
   { id: 'perfect_score',  name: '100%',         icon: '💯', desc: 'Jaweb sahi bzzaf!' },
   { id: 'streak_3',       name: 'Moustamirr',   icon: '🔥', desc: '3 drous f ness wahda!' },
   { id: 'streak_7',       name: 'Champion 7',   icon: '⚡', desc: '7 yam f ness!' },
-  { id: 'all_modules',    name: 'Excel Star ⭐', icon: '🏆', desc: 'Kmelti koll modules!' },
+  { id: 'all_modules',    name: 'Almdoun Star ⭐', icon: '🏆', desc: 'Kmelti koll modules!' },
   { id: 'leaderboard_1',  name: 'L-Awwal',      icon: '👑', desc: 'Nta/Nti l-awwal f classeur!' },
   { id: 'exercises_50',   name: 'Nshit',        icon: '💪', desc: '50 exercise kmelti!' },
 ];

@@ -83,7 +83,7 @@ export function HomeScreen({
     const levelName = S.isRTL ? levelInfo.nameAr : levelInfo.name;
     const streakLine = student.streakDays > 0 ? `🔥 ${student.streakDays} ${S.streak}\n` : '';
     const message = [
-      `🎓 ${student.name} – ExcelStar`,
+      `🎓 ${student.name} – Almdoun Learning`,
       `${levelInfo.badge} ${levelName}  |  ${xp} XP`,
       `📚 ${completedLessons}/${totalLessons} leçons`,
       `🏆 ${progress?.badges.length ?? 0} badges`,
@@ -103,7 +103,7 @@ export function HomeScreen({
       <View style={sc.header}>
         <View>
           <Text style={sc.greeting}>{S.greeting}</Text>
-          <Text style={sc.appName}>ExcelStar ⭐</Text>
+          <Text style={sc.appName}>Almdoun Learning</Text>
         </View>
         <TouchableOpacity
           style={sc.avatarBtn}

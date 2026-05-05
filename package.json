@@ -1,5 +1,5 @@
 {
-  "name": "excelstar",
+  "name": "almdoun-learning",
   "version": "1.2.0",
   "main": "index.ts",
   "scripts": {
@@ -31,6 +31,8 @@
     "react-native-svg": "15.12.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0",
     "@types/react": "~19.1.0",
     "typescript": "~5.9.2"
   },

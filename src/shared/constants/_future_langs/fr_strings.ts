@@ -23,7 +23,7 @@ export const FRENCH: AppStrings = {
   tabSimulator: 'Simulateur',
   langSelectTitle: 'Choisissez votre langue',
   langSelectSub: 'Choose your language',
-  onboard1Title: 'Bienvenue sur ExcelStar! 🎉',
+  onboard1Title: 'Bienvenue sur Almdoun Learning! 🎉',
   onboard1Desc: 'Apprenez Excel en jouant! Chaque leçon = XP + badge!',
   onboard2Title: 'Apprenez Excel en jouant! 🎮',
   onboard2Desc: 'Leçons, exercices, mini-jeux et badges – tout ensemble!',

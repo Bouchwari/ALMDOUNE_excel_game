@@ -4,8 +4,8 @@ import { StudentProgress, createStudentProgress } from '../../domain/student/Stu
 import { StudentRepository } from '../../domain/student/StudentRepository';
 
 const KEYS = {
-  students: 'excelstar:students',
-  progress: (id: string) => `excelstar:progress:${id}`,
+  students: 'almdoun:students',
+  progress: (id: string) => `almdoun:progress:${id}`,
 };
 
 export class AsyncStorageStudentRepo implements StudentRepository {

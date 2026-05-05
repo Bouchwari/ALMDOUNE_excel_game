@@ -10,6 +10,7 @@ export interface Exercise {
   type: ExerciseType;
   question: string;
   hint?: string;
+  explanation?: string;
 
   // multiple_choice & true_false
   options?: string[];

@@ -19,7 +19,7 @@ const ThemeContext = createContext<ThemeContextValue>({
 // TODO (architecture): move dark-mode persistence to SettingsRepository
 // Kept here for now because ThemeProvider must load synchronously before
 // any screen renders and before the progress repo is initialized.
-const STORAGE_KEY = '@excelstar_dark_mode';
+const STORAGE_KEY = '@almdoun_dark_mode';
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [isDark, setIsDark] = useState(false);

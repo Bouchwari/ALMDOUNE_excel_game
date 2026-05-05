@@ -3,8 +3,8 @@ import { LessonResult } from '../../domain/progress/LessonResult';
 import { ProgressRepository, AppSettings, defaultSettings } from '../../domain/progress/ProgressRepository';
 
 const KEYS = {
-  results: (studentId: string) => `excelstar:results:${studentId}`,
-  settings: 'excelstar:settings',
+  results: (studentId: string) => `almdoun:results:${studentId}`,
+  settings: 'almdoun:settings',
 };
 
 export class AsyncStorageProgressRepo implements ProgressRepository {

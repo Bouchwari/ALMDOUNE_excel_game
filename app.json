@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ExcelStar – Almdoun",
-    "slug": "excelstar-almdoun",
+    "name": "Almdoun Learning",
+    "slug": "almdoun-learning",
     "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/images/school_logo.png",
@@ -22,7 +22,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.excelstar.almdoun",
+      "package": "com.almdoun.learning",
       "versionCode": 3,
       "jsEngine": "hermes",
       "permissions": [
@@ -38,7 +38,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow ExcelStar to use the camera to scan friend challenge QR codes."
+          "cameraPermission": "Allow Almdoun Learning to use the camera to scan friend challenge QR codes."
         }
       ],
       [

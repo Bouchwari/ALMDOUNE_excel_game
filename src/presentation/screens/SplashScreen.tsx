@@ -39,7 +39,7 @@ export function SplashScreen({ onFinish }: Props) {
       </Animated.View>
 
       <Animated.View style={[styles.textContainer, { opacity: textOpacity }]}>
-        <Text style={styles.appName}>ExcelStar</Text>
+        <Text style={styles.appName}>Almdoun Learning</Text>
         <Text style={styles.schoolAr}>الثانوية الإعدادية ألمدون</Text>
         <Text style={styles.schoolFr}>Lycée Collégial Almdoun</Text>
       </Animated.View>

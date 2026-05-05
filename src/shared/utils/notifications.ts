@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
-const CHANNEL_ID = 'excelstar_reminders';
+const CHANNEL_ID = 'almdoun_reminders';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -16,7 +16,7 @@ Notifications.setNotificationHandler({
 async function ensureChannel(): Promise<void> {
   if (Platform.OS !== 'android') return;
   await Notifications.setNotificationChannelAsync(CHANNEL_ID, {
-    name: 'تذكيرات ExcelStar',
+    name: 'تذكيرات Almdoun Learning',
     importance: Notifications.AndroidImportance.DEFAULT,
     vibrationPattern: [0, 250, 250, 250],
     sound: 'default',
@@ -35,7 +35,7 @@ export async function scheduleStreakReminder(): Promise<void> {
 
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: 'واش نسيتي ExcelStar؟ 📚',
+      title: 'واش نسيتي Almdoun Learning؟ 📚',
       body: 'جي تعلم دبا! ✨ زيد على هاكا!',
       sound: 'default',
       ...(Platform.OS === 'android' && { channelId: CHANNEL_ID }),
